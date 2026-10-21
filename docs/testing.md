@@ -1,12 +1,24 @@
-# Software verification — 2026-10-20
+# Software verification — 2026-10-21
 
 Historical Windows Python 3.12.14 run: **166 passed, 2 skipped**, exit 0. All warnings were treated as errors. The two skipped tests require POSIX process-group behavior, which Windows cannot establish. Historical machine-readable reports are excluded from the public source; reproduce the run locally.
 
 The sanitized publication copy was retested on 21 October 2026 against its own
 source with the same runtime: **166 passed, 2 skipped**, warnings treated as
 errors. That local report is kept in the ignored `.aegis/reports/` directory.
-Debian/Python 3.13 has not yet been exercised; the prepared CI job and Debian
-guide describe how to obtain that evidence.
+After fixing SQLite connection cleanup and adding four lifetime regressions,
+the Windows/Python 3.12 suite passed **170 tests, with 2 POSIX skips**.
+
+Public [Debian 13/Python 3.13 CI](https://github.com/VonSchugel/AEGIS-iPad/actions/runs/39666523238)
+at commit `43ea2efc7588f26b67c97af05322aba7c7d873d3` successfully installed
+the pinned Python dependencies and application, passed `pip check`, ran
+**172 tests with warnings treated as errors**, and completed the fixture-only
+simulation. The two process-group tests skipped on Windows ran on Debian.
+CI does not have a physical iPad or validate Apple USB permissions/drivers.
+
+The first public Debian run exposed unclosed SQLite connections that Python
+3.13 reports as ResourceWarnings. Both the read-only verifier and fixture
+writer now close their connections explicitly, including error paths.
+No warning filter was added.
 
 Reproduction from an installed checkout:
 
@@ -33,10 +45,15 @@ Tests use synthetic device outputs, temporary backup manifests and ordinary loca
 
 Review found and corrected structured-error failures for malformed metadata, approval-state ordering, incomplete singleton inventory, unbounded descendant-pipe cleanup and SSH endpoint binding. Windows pytest-asyncio's policy lookup also allocated an unused event loop. The session test fixture explicitly owns its event-loop policy; no resource warning is suppressed and production asyncio behavior is unchanged.
 
-Host diagnostics and blocked planning were exercised separately through the installed CLI; those historical reports remain private. Simulated success does not satisfy a hardware precondition. The physical Linux/macOS adapter, actual DFU progression, bootstrap completion, independent hardware validation, reboot behavior and all Linux milestones remain untested. The CI workflow is a prepared verification procedure; no remote CI result is claimed.
+Host diagnostics and blocked planning were exercised separately through the installed CLI; those historical reports remain private. Simulated success does not satisfy a hardware precondition. The physical Linux/macOS adapter, actual DFU progression, bootstrap completion, independent hardware validation, reboot behavior and all Linux milestones remain untested.
 
 The distributable wheel was also installed into a separate target directory.
 Isolated interpreter checks asserted that the imported module came from that
 target rather than the source checkout, then successfully ran `simulate`,
 `research` and `linux-status`. All four bundled data files were present and no
 private logs/database were packaged. That historical package report remains private.
+
+A fresh anonymous clone of the public repository was also built into a wheel,
+installed into a separate target directory and tested with `simulate`,
+`research` and `linux-status`. Isolated import checks confirmed that the installed
+wheel was used instead of an older checkout. All three commands succeeded.

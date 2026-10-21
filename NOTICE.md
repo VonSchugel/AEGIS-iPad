@@ -8,10 +8,12 @@ No project license has been selected. Referenced upstream tools and documents
 retain their respective licenses; their inclusion as references does not grant
 rights to redistribute their binaries.
 
-Debian installation instructions target Debian 13 and Python 3.13. Historical
-software tests ran on Windows/Python 3.12. A successful Debian test run is still
-required; installing the host application does not jailbreak a device. Hardware
-installation and native Linux boot on an iPad remain unverified.
+Debian installation instructions target Debian 13 and Python 3.13. Public CI
+successfully installed the project, passed 172 software tests and ran the
+fixture-only simulation on that platform. Windows/Python 3.12 verification also
+passed. Target-host USB access and hardware behavior still require independent
+verification; installing the host application does not jailbreak a device.
+Hardware installation and native Linux boot on an iPad remain unverified.
 
 The encrypted-backup verification limitation remains a blocker for physical
 execution with such a backup. Retain protected backups rather than weakening

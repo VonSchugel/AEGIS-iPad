@@ -1,6 +1,6 @@
 # Install AEGIS from GitHub on Debian 13
 
-Reviewed 21 October 2026. These instructions prepare AEGIS on the **host computer**. They do not install Linux on the iPad or perform a jailbreak. Debian installation and physical-device behavior have not been tested in this workspace; the prior software verification used Windows and Python 3.12. Run each command separately and stop if a stage fails.
+Reviewed 21 October 2026. These instructions prepare AEGIS on the **host computer**. They do not install Linux on the iPad or perform a jailbreak. [Public Debian 13/Python 3.13 CI](https://github.com/VonSchugel/AEGIS-iPad/actions/runs/39666523238) verified Python dependency installation, 172 software tests and fixture-only simulation. Actual laptop booting, Apple USB package/interface behavior and physical-device execution remain unverified. Run each command separately and stop if a stage fails.
 
 Use native Debian 13 (trixie), installed or booted as a Live environment, with direct USB access. The implemented physical execution adapter rejects Windows, WSL and virtual machines. On a nonpersistent Live session, save the checkout and private reports to separate persistent storage before shutdown. For preparing a Live USB and retaining the existing protected backup, see [the setup guide](../SETUP-iPadOS-17.0.3.md).
 
@@ -65,7 +65,7 @@ timeout 60s .venv/bin/aegis doctor > .aegis/reports/doctor.json
 
 Tests must finish successfully. A simulation must identify itself as simulated. If the timeout command exits 124 or doctor output is incomplete, retain the failure and resolve it before proceeding. Review doctor for the actual host and installed tools. Missing optional reverse-engineering applications do not prevent initial device identification; their availability is assessed separately in [the toolchain guide](toolchain.md).
 
-The existing test counts in [testing.md](testing.md) describe a prior Windows run. Only the new Debian test result establishes what passed on this machine. Fixture success cannot satisfy a physical-device precondition.
+The test counts in [testing.md](testing.md) distinguish Windows and Debian CI. A new local test result establishes what passed on this machine. Fixture success cannot satisfy a physical-device precondition.
 
 ## 4. Perform read-only identification
 

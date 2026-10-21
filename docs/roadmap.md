@@ -1,6 +1,6 @@
 # Evidence-based roadmap
 
-Status date: **2026-10-20**. The implementation and fixture tests are software
+Status date: **2026-10-21**. The implementation and fixture tests are software
 achievements. **Zero physical jailbreak installation steps and zero Linux boot
 experiments were performed.** Exact target firmware is still unknown. Test
 results and the observed environment are reported separately; this roadmap does
@@ -24,6 +24,11 @@ timeouts, cancellation, malformed outputs, partial validation and simulated
 recovery. Physical transports are mocked. POSIX-only process-group tests are
 skipped on Windows and require a supported POSIX host; no cross-platform result
 is implied by the Windows run.
+
+Public Debian 13/Python 3.13 CI subsequently passed all 172 software tests,
+including the POSIX process-group checks, and fixture-only simulation.
+See [verification evidence](testing.md). Actual target USB transport, DFU,
+jailbreak installation and every Linux boot milestone remain untested.
 
 ## Next smallest useful steps
 

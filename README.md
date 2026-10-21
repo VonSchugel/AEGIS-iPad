@@ -2,7 +2,7 @@
 
 An evidence-based Python application for owner-authorized iPad 7 research. It implements six cooperating agents, read-only discovery, a version-aware compatibility engine, a persistent evidence database, fixture simulations, and a guarded adapter for **palera1n v2.4 rootless**.
 
-**Current result:** the software runs on the observed Windows host. The iPad's identity and firmware could not be established because Apple communication utilities are absent. The physical installation gate has not been crossed. No device was modified, no jailbreak was verified, and Linux was not booted.
+**Current result:** software verification passes on Windows and in Debian 13/Python 3.13 CI. The iPad's identity and firmware could not be established on the observed host because Apple communication utilities are absent. The physical installation gate has not been crossed. No device was modified, no jailbreak was verified, and Linux was not booted. See [verification results](docs/testing.md).
 
 ## Start
 
@@ -78,4 +78,4 @@ The Linux report confirms pinned mainline J171/J172 device trees, downstream Hoo
 
 `src/aegis/agents` contains the six agents; `adapters` isolates upstream tools; `orchestration` enforces transitions; `safety` implements backup/approval checks; `evidence` stores redacted events; and `data` contains dated research and artifact manifests. REA is independent of physical command construction. Its [integration guide](docs/rea.md) distinguishes the implemented capability/parser seam from the unavailable live MCP/provider connection.
 
-See [architecture](docs/architecture.md), [toolchain evaluation](docs/toolchain.md), and [test results](docs/testing.md). Tests cover compatibility boundaries, unknowns, privacy, malformed metadata, expired/replayed approvals, device changes, subprocess timeout/cancellation, simulated failures and independent validation. They never exploit or modify physical hardware. A Linux/macOS test run and hardware experiment remain necessary before relying on physical execution.
+See [architecture](docs/architecture.md), [toolchain evaluation](docs/toolchain.md), and [test results](docs/testing.md). Tests cover compatibility boundaries, unknowns, privacy, malformed metadata, expired/replayed approvals, device changes, subprocess timeout/cancellation, simulated failures and independent validation. They never exploit or modify physical hardware. Target-host diagnostics and an approved hardware experiment remain necessary before relying on physical execution; macOS remains untested.
