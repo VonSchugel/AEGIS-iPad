@@ -1,3 +1,4 @@
+from contextlib import closing
 from datetime import datetime, timezone, timedelta
 import hashlib
 from pathlib import Path
@@ -40,7 +41,7 @@ def verify_backup(folder: Path, device: dict, now: datetime | None = None) -> di
             while chunk := database.read(1024 * 1024):
                 hasher.update(chunk)
         digest = hasher.hexdigest()
-        with sqlite3.connect(db.resolve().as_uri() + "?mode=ro", uri=True) as connection:
+        with closing(sqlite3.connect(db.resolve().as_uri() + "?mode=ro", uri=True)) as connection:
             deadline = time.monotonic() + 30
             connection.set_progress_handler(lambda: int(time.monotonic() > deadline), 10000)
             connection.execute("PRAGMA query_only=ON")

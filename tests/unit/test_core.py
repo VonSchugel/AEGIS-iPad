@@ -1,3 +1,4 @@
+from contextlib import closing
 from copy import deepcopy
 from datetime import datetime, timezone, timedelta
 import hashlib
@@ -23,7 +24,7 @@ def make_backup(folder, *, date=None, encrypted=False, missing=False):
     for name, value in [("Info.plist", info), ("Status.plist", {"SnapshotState": "finished"}), ("Manifest.plist", {"IsEncrypted": encrypted})]:
         (folder / name).write_bytes(plistlib.dumps(value))
     file_id = "b" * 40
-    with sqlite3.connect(folder / "Manifest.db") as conn:
+    with closing(sqlite3.connect(folder / "Manifest.db")) as conn, conn:
         conn.execute("CREATE TABLE Files(fileID TEXT, flags INTEGER)")
         conn.execute("INSERT INTO Files VALUES(?,1)", (file_id,))
     if not missing:
@@ -49,6 +50,84 @@ def test_backup_rejects_unverified(tmp_path, change):
         device["product_version"] = "18.4"
     with pytest.raises(WorkflowError, match="Backup verification failed"):
         verify_backup(tmp_path, device)
+
+
+@pytest.mark.parametrize("outcome", ["success", "missing_payload", "missing_schema"])
+def test_backup_connections_close_before_return_or_verification_error(tmp_path, monkeypatch, outcome):
+    """Observe real connection lifetimes rather than relying on garbage collection."""
+    real_connect = sqlite3.connect
+    connections = []
+
+    class TrackedConnection(sqlite3.Connection):
+        closed = False
+
+        def close(self):
+            try:
+                return super().close()
+            finally:
+                self.closed = True
+
+    def connect(*args, **kwargs):
+        connection = real_connect(*args, **kwargs, factory=TrackedConnection)
+        connections.append(connection)
+        return connection
+
+    monkeypatch.setattr(sqlite3, "connect", connect)
+    try:
+        device = make_backup(tmp_path, missing=outcome == "missing_payload")
+        assert len(connections) == 1 and connections[0].closed
+        if outcome == "missing_schema":
+            with closing(real_connect(tmp_path / "Manifest.db")) as connection, connection:
+                connection.execute("DROP TABLE Files")
+        if outcome == "success":
+            assert verify_backup(tmp_path, device)["verified"]
+        else:
+            with pytest.raises(WorkflowError, match="Backup verification failed"):
+                verify_backup(tmp_path, device)
+        assert len(connections) == 2 and all(connection.closed for connection in connections)
+    finally:
+        # A broken implementation should fail the lifetime assertion without
+        # letting the regression test itself leak its retained connections.
+        for connection in connections:
+            if not connection.closed:
+                connection.close()
+
+
+def test_backup_fixture_rolls_back_and_closes_when_population_fails(tmp_path, monkeypatch):
+    real_connect = sqlite3.connect
+    connections = []
+
+    class FailingInsertConnection(sqlite3.Connection):
+        closed = False
+
+        def execute(self, sql, *args, **kwargs):
+            result = super().execute(sql, *args, **kwargs)
+            if sql.startswith("INSERT"):
+                raise sqlite3.OperationalError("Synthetic fixture population failure")
+            return result
+
+        def close(self):
+            try:
+                return super().close()
+            finally:
+                self.closed = True
+
+    def connect(*args, **kwargs):
+        connection = real_connect(*args, **kwargs, factory=FailingInsertConnection)
+        connections.append(connection)
+        return connection
+
+    monkeypatch.setattr(sqlite3, "connect", connect)
+    try:
+        with pytest.raises(sqlite3.OperationalError, match="Synthetic fixture population failure"):
+            make_backup(tmp_path)
+        assert len(connections) == 1 and connections[0].closed
+        with closing(real_connect(tmp_path / "Manifest.db")) as connection:
+            assert connection.execute("SELECT count(*) FROM Files").fetchone() == (0,)
+    finally:
+        for connection in connections:
+            if not connection.closed:
+                connection.close()
 
 
 def test_approval_exact_bound_expiring_and_single_use():
