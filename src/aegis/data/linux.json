@@ -1,0 +1,513 @@
+{
+  "schema_version": 1,
+  "assessed_at": "2026-10-20",
+  "classification": "SUPPORTED BY DOCUMENTATION",
+  "target": {
+    "requested_models": [
+      "iPad7,11",
+      "iPad7,12"
+    ],
+    "requested_soc": "Apple A10 / T8010",
+    "attached_device_identity": "UNKNOWN",
+    "firmware": "UNKNOWN"
+  },
+  "local_linux_boot_verified": false,
+  "recommendation": "Evaluate a pinned HoolockLinux + m1n1 + PongoOS RAM-only boot in a separate approved experiment after device identity and firmware discovery. Begin with initramfs and log capture; do not repartition internal storage.",
+  "boot_paths": {
+    "normal_a10": [
+      "Boot ROM verifies iBoot",
+      "iBoot verifies iPadOS kernel",
+      "iPadOS"
+    ],
+    "research_candidate": [
+      "Operator-approved DFU/checkm8 entry",
+      "PongoOS",
+      "m1n1 idevice loader",
+      "Linux Image + board DTB + initramfs"
+    ],
+    "limitations": [
+      "A10 must not inherit the older A9-and-earlier LLB chain by assumption.",
+      "A successful jailbreak establishes neither a Linux handoff nor working Linux drivers."
+    ]
+  },
+  "milestones": [
+    {
+      "id": "A",
+      "name": "Booting a custom payload",
+      "upstream_status": "Supported",
+      "local_status": "NOT_TESTED",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "evidence_ids": [
+        "linux-pongo",
+        "linux-loader"
+      ],
+      "success_criterion": "Retain the exact payload hash and a fresh PongoOS/m1n1 banner from this board."
+    },
+    {
+      "id": "B",
+      "name": "Reaching Linux early kernel initialization",
+      "upstream_status": "Supported",
+      "local_status": "NOT_TESTED",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "evidence_ids": [
+        "linux-j171",
+        "linux-a10-soc",
+        "linux-loader",
+        "linux-j172"
+      ],
+      "success_criterion": "Fresh boot log identifies the selected board DTB, kernel revision, interrupt controller, timer and usable RAM."
+    },
+    {
+      "id": "C",
+      "name": "Reaching a Linux shell",
+      "upstream_status": "Partially implemented",
+      "local_status": "NOT_TESTED",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "evidence_ids": [
+        "linux-build"
+      ],
+      "success_criterion": "Interact with an initramfs shell over a verified console and retain command results and the full boot log."
+    },
+    {
+      "id": "D",
+      "name": "Mounting a usable root filesystem",
+      "upstream_status": "Experimental",
+      "local_status": "NOT_TESTED",
+      "classification": "EXPERIMENTAL",
+      "evidence_ids": [
+        "linux-j172-report"
+      ],
+      "success_criterion": "First demonstrate a RAM-backed rootfs. Any internal-storage trial needs its own reviewed plan, backups and approval."
+    },
+    {
+      "id": "E",
+      "name": "Running a stable graphical Linux environment",
+      "upstream_status": "Experimental",
+      "local_status": "NOT_TESTED",
+      "classification": "EXPERIMENTAL",
+      "evidence_ids": [
+        "linux-j172-report",
+        "linux-features"
+      ],
+      "success_criterion": "Repeat cold boots, touch tests and bounded thermal/power observation without crashes; suspend and recovery must be evaluated separately."
+    }
+  ],
+  "subsystems": [
+    {
+      "name": "Boot ROM and pre-boot payload",
+      "status": "Supported",
+      "scope": "Documented PongoOS route, no local attempt",
+      "evidence_ids": [
+        "linux-pongo",
+        "linux-loader"
+      ]
+    },
+    {
+      "name": "ARM64 kernel handoff",
+      "status": "Partially implemented",
+      "scope": "Loader must meet entry contract",
+      "evidence_ids": [
+        "linux-arm64-entry",
+        "linux-loader"
+      ]
+    },
+    {
+      "name": "A10 device tree",
+      "status": "Supported",
+      "scope": "Pinned mainline J171 and J172 DTS sources both observed",
+      "evidence_ids": [
+        "linux-j171",
+        "linux-j172",
+        "linux-features"
+      ]
+    },
+    {
+      "name": "AIC interrupt controller",
+      "status": "Supported",
+      "scope": "T8010 source",
+      "evidence_ids": [
+        "linux-a10-soc"
+      ]
+    },
+    {
+      "name": "Architectural timer",
+      "status": "Supported",
+      "scope": "T8010 source; no EL2 assumption",
+      "evidence_ids": [
+        "linux-a10-soc"
+      ]
+    },
+    {
+      "name": "Memory map and reserved regions",
+      "status": "Partially implemented",
+      "scope": "Loader supplies actual RAM and reservations",
+      "evidence_ids": [
+        "linux-a10-soc",
+        "linux-arm64-entry"
+      ]
+    },
+    {
+      "name": "USB device mode",
+      "status": "Partially implemented",
+      "scope": "Downstream linux-apple",
+      "evidence_ids": [
+        "linux-features"
+      ]
+    },
+    {
+      "name": "UART",
+      "status": "Supported",
+      "scope": "Driver/DT exist; cable access untested",
+      "evidence_ids": [
+        "linux-a10-soc"
+      ]
+    },
+    {
+      "name": "Framebuffer and backlight",
+      "status": "Partially implemented",
+      "scope": "Basic display; no full display pipeline",
+      "evidence_ids": [
+        "linux-features"
+      ]
+    },
+    {
+      "name": "GPU acceleration",
+      "status": "Unsupported",
+      "scope": "Surveyed Hoolock A10 baseline lists TBA",
+      "evidence_ids": [
+        "linux-features"
+      ]
+    },
+    {
+      "name": "Touchscreen",
+      "status": "Experimental",
+      "scope": "J172 author report; J171 unvalidated",
+      "evidence_ids": [
+        "linux-j172-report"
+      ]
+    },
+    {
+      "name": "Internal NVMe storage",
+      "status": "Experimental",
+      "scope": "J172 author report requires loader changes",
+      "evidence_ids": [
+        "linux-j172-report",
+        "linux-j172-loader-source"
+      ]
+    },
+    {
+      "name": "Power management",
+      "status": "Partially implemented",
+      "scope": "PMGR/cpufreq differ from full suspend",
+      "evidence_ids": [
+        "linux-features",
+        "linux-j172-report"
+      ]
+    },
+    {
+      "name": "Initramfs/root filesystem",
+      "status": "Supported",
+      "scope": "Documented ARM64 gzip initramfs route; untested here",
+      "evidence_ids": [
+        "linux-loader",
+        "linux-build"
+      ]
+    },
+    {
+      "name": "Wi-Fi, Bluetooth, audio, cameras and cellular",
+      "status": "Unknown",
+      "scope": "Exact-board capabilities not established in this bounded review",
+      "evidence_ids": [
+        "linux-sandcastle"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "linux-boot-chain",
+      "question": "What is the ordinary A10 secure-boot sequence?",
+      "source_url": "https://support.apple.com/guide/security/boot-process-for-iphone-and-ipad-devices-secb3000f149/web",
+      "revision": "Apple Platform Security page published 2021-02-18",
+      "observed": "Apple describes Boot ROM to iBoot to the kernel; LLB is an additional stage for A9 and earlier.",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "confidence": "high",
+      "limitations": [
+        "General architecture, not a device trace or exploit implementation."
+      ],
+      "reproduction": "Read the Apple boot-process page and distinguish its A9-and-earlier condition.",
+      "next_step": "Confirm board and firmware before constructing a research handoff.",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-pongo",
+      "question": "What does PongoOS provide?",
+      "source_url": "https://github.com/checkra1n/PongoOS/blob/4c9b7541629234147fcc778f0ce4162482aaccef/README.md",
+      "revision": "4c9b7541629234147fcc778f0ce4162482aaccef (master; commit dated 2021-11-04; pinned README fetched 2026-10-20)",
+      "observed": "PongoOS is a pre-boot environment with standalone Mach-O/bare-metal outputs and a shell. It does not promise complete Linux device drivers.",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "confidence": "high",
+      "limitations": [
+        "README's historical checkra1n examples are not a version-aware installation recipe for unknown firmware."
+      ],
+      "reproduction": "Inspect the upstream README and compare its branch with the chosen pinned loader build.",
+      "next_step": "Pin matching loader/tool revisions and inspect host build requirements offline.",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-j171",
+      "question": "Does mainline contain an iPad 7 device description?",
+      "source_url": "https://github.com/torvalds/linux/blob/f47d223627f80cb7a1eb14c585fe6cb35de5e984/arch/arm64/boot/dts/apple/t8010-j171.dts",
+      "revision": "f47d223627f80cb7a1eb14c585fe6cb35de5e984 (torvalds/linux master resolved and pinned text fetched 2026-10-20; commit dated 2026-10-20)",
+      "observed": "The source labels J171 as iPad7,11 and includes t8010-ipad7.dtsi. It selects apple,j171 and apple,t8010 compatibility.",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "confidence": "high",
+      "limitations": [
+        "Source presence is not observed boot success; J172 is recorded separately from its confirmed pinned DTS."
+      ],
+      "reproduction": "Read the exact upstream DTS and its included board/SoC descriptions at a pinned kernel revision.",
+      "next_step": "Select the matching board DTB only after detecting which target is attached.",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-a10-soc",
+      "question": "Which A10 platform primitives already have mainline descriptions?",
+      "source_url": "https://github.com/torvalds/linux/blob/f47d223627f80cb7a1eb14c585fe6cb35de5e984/arch/arm64/boot/dts/apple/t8010.dtsi",
+      "revision": "f47d223627f80cb7a1eb14c585fe6cb35de5e984 (torvalds/linux master resolved and pinned text fetched 2026-10-20; commit dated 2026-10-20)",
+      "observed": "T8010 describes AIC, UART, power domains, spin-table CPUs and an ARMv8 timer. CPU release addresses require loader fixups. The timer comment says A10 has no EL2.",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "confidence": "high",
+      "limitations": [
+        "DTS values are source evidence, not measured state on the owner's device. Disabled nodes need board/loader context."
+      ],
+      "reproduction": "Inspect CPU, AIC, timer, serial and PMGR nodes in the cited SoC include.",
+      "next_step": "Validate DT reservations, timer interrupts and secondary-CPU release using a captured boot log.",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-features",
+      "question": "What is the maintained A10/iPad 7 support baseline?",
+      "source_url": "https://github.com/HoolockLinux/docs/blob/23ebe1fbc375599221553a7e1815e5de182a6b42/features/A10.md",
+      "revision": "23ebe1fbc375599221553a7e1815e5de182a6b42 (HoolockLinux/docs master; commit dated 2026-09-04; pinned file fetched 2026-10-20)",
+      "observed": "Maintainers list iPad 7 DT/display/buttons from 6.13 and brightness from 6.15. USB is downstream; display-pipeline/GPU work is TBA.",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "confidence": "medium",
+      "limitations": [
+        "Maintainer matrix; no independent hardware test. Its linux-apple terminology predates the current hoolock branch name."
+      ],
+      "reproduction": "Read the A10 matrix legend before comparing upstream release entries and downstream entries.",
+      "next_step": "Pin HoolockLinux/linux hoolock and verify relevant drivers/config against that revision.",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-arm64-entry",
+      "question": "What must a loader establish before entering Linux?",
+      "source_url": "https://github.com/torvalds/linux/blob/f47d223627f80cb7a1eb14c585fe6cb35de5e984/Documentation/arch/arm64/booting.rst",
+      "revision": "f47d223627f80cb7a1eb14c585fe6cb35de5e984 (torvalds/linux master resolved and pinned text fetched 2026-10-20; commit dated 2026-10-20)",
+      "observed": "The ARM64 boot contract requires a valid physical DTB in x0, zero x1-x3, appropriate CPU/cache/MMU/interrupt state and a valid memory layout.",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "confidence": "high",
+      "limitations": [
+        "Generic contract must be applied to A10's implemented exception levels and AIC, not copied from a GIC/EL2 target."
+      ],
+      "reproduction": "Review DTB placement, image placement, CPU-mode, register, cache and memory-entry requirements.",
+      "next_step": "Review loader source and verify its actual handoff state in a separate experiment.",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-loader",
+      "question": "What existing loader path should a minimal experiment evaluate?",
+      "source_url": "https://github.com/HoolockLinux/docs/blob/23ebe1fbc375599221553a7e1815e5de182a6b42/tutorials/SETUP_pongoOS.md",
+      "revision": "23ebe1fbc375599221553a7e1815e5de182a6b42 (HoolockLinux/docs master; commit dated 2026-09-04; pinned file fetched 2026-10-20)",
+      "observed": "Maintainers document PongoOS to m1n1 with appended kernel, DTBs and a gzip ARM64 initramfs.",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "confidence": "medium",
+      "limitations": [
+        "The guide includes prerelease tooling and a bypass environment variable; those are not imported into the ordinary jailbreak workflow. Several shell examples require correction/review before use."
+      ],
+      "reproduction": "Review the guide, linked loader source and package/build provenance without running its boot commands.",
+      "next_step": "Prepare a reviewed RAM-only manifest with source commits, output hashes and explicit approval before a physical boot.",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-build",
+      "question": "What is a suitable build and initial userspace baseline?",
+      "source_url": "https://github.com/HoolockLinux/docs/blob/23ebe1fbc375599221553a7e1815e5de182a6b42/tutorials/SETUP.md",
+      "revision": "23ebe1fbc375599221553a7e1815e5de182a6b42 (HoolockLinux/docs master; commit dated 2026-09-04; pinned file fetched 2026-10-20)",
+      "observed": "The build guide selects Hoolock Linux/m1n1 branches, a Linux kernel build host, ARM64 toolchains and a 16K example configuration for A9-A11. Its example initramfs offers serial/USB access.",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "confidence": "medium",
+      "limitations": [
+        "No cross-build, initramfs test or USB shell was performed here. Example network shells are not secure default services."
+      ],
+      "reproduction": "Review current branch/config names and build dependencies; build a minimal userspace with a pinned Buildroot or Alpine release.",
+      "next_step": "Test initramfs init and userspace under QEMU virt, retaining that result separately from A10 hardware validation.",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-j172-report",
+      "question": "Is there an exact-board lead beyond basic iPad 7 display support?",
+      "source_url": "https://github.com/Pauli1Go/HoolockLinux-bringup-docs/blob/c9d02dbcbb37d73cffb0ce048b03308c6416d8db/docs/touch.md",
+      "revision": "c9d02dbcbb37d73cffb0ce048b03308c6416d8db (main; report commit dated 2026-07-14; pinned text fetched 2026-10-20)",
+      "observed": "An author reports J172 touch and internal NVMe rootfs on a graphical desktop, requiring board firmware and patched m1n1 HMB setup. Suspend/full power behavior remains limited.",
+      "classification": "EXPERIMENTAL",
+      "confidence": "low",
+      "limitations": [
+        "Author-reported hardware results, not independently reproduced. The report and loader source are pinned, but no complete reviewed kernel patch-series revision was acquired. J171 touch/storage portability is not established."
+      ],
+      "reproduction": "Review the author's exact source series, loader differences and retained logs before considering an experiment.",
+      "next_step": "Review the exact kernel series and corroborating logs; start with RAM-only boot and keep storage writes outside the ordinary workflow.",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-sandcastle",
+      "question": "Does historical Sandcastle establish universal A7-A11 Linux support?",
+      "source_url": "https://projectsandcastle.org/status",
+      "revision": "Live status page retrieved 2026-10-20; publication date unspecified",
+      "observed": "The official downloadable builds list iPhone 7/7 Plus and iPod touch 7, not iPad 7. Shared A10 silicon does not establish board-driver compatibility.",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "confidence": "high",
+      "limitations": [
+        "This is Sandcastle's stated build scope, not a negative result for HoolockLinux or all research ports."
+      ],
+      "reproduction": "Compare the official supported build list with this project's exact board and the newer Hoolock sources.",
+      "next_step": "Reuse public source selectively and validate each peripheral on the detected board.",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-j172",
+      "question": "Does the upstream tree also describe the cellular iPad 7?",
+      "source_url": "https://github.com/torvalds/linux/blob/f47d223627f80cb7a1eb14c585fe6cb35de5e984/arch/arm64/boot/dts/apple/t8010-j172.dts",
+      "revision": "f47d223627f80cb7a1eb14c585fe6cb35de5e984 (master, commit dated 2026-10-20; pinned file fetched 2026-10-20)",
+      "observed": "The pinned source labels J172 as iPad7,12, includes t8010-ipad7.dtsi and selects apple,j172 plus apple,t8010 compatibility. The same DTS was fetched in Hoolock hoolock at 6831bc701a6ce059e71e5aaa9488c9195bea6927.",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "confidence": "high",
+      "limitations": [
+        "Exact-board source presence does not verify touch, storage, firmware compatibility or a successful local boot."
+      ],
+      "reproduction": "Fetch the cited pinned DTS and its included board/SoC files; compare J171 and J172 selections.",
+      "next_step": "Bind the selected DTB to actual discovered hardware and review its loader requirements.",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-j172-loader-source",
+      "question": "Does the reported loader fork contain the NVMe HMB handoff implementation?",
+      "source_url": "https://github.com/Pauli1Go/m1n1/blob/0ac395710d7b2ac842c734400521288c93677ebe/src/kboot.c",
+      "revision": "0ac395710d7b2ac842c734400521288c93677ebe (idevice branch; commit dated 2026-08-19; pinned source fetched 2026-10-20)",
+      "observed": "Source contains dt_set_nvme_hmb, reads the ADT nvme-mmu0 sart-region, populates the FDT HMB region and calls the function during device-tree preparation.",
+      "classification": "SUPPORTED BY DOCUMENTATION",
+      "confidence": "medium",
+      "limitations": [
+        "Static source inspection only. The current fork revision postdates the touch report, and is not asserted to be the exact build used in that reported experiment. No runtime test or complete kernel-series audit was performed."
+      ],
+      "reproduction": "Inspect dt_set_nvme_hmb and its call site at the cited pinned revision.",
+      "next_step": "Review the exact report-era build and matching kernel/DT before a separate RAM-only trial.",
+      "retrieved_at": "2026-10-20"
+    }
+  ],
+  "roadmap": [
+    {
+      "step": 1,
+      "device_approval_required": false,
+      "action": "Detect exact board/firmware; resolve source commits and verify tool availability.",
+      "success": "No unknown identity fields used for compatibility decisions."
+    },
+    {
+      "step": 2,
+      "device_approval_required": false,
+      "action": "Cross-build the pinned kernel, board DTB, loader and minimal initramfs on a suitable Linux host.",
+      "success": "Build logs, configuration, source revisions and artifact SHA-256 values retained."
+    },
+    {
+      "step": 3,
+      "device_approval_required": false,
+      "action": "Test userspace/init only with QEMU virt, using a kernel appropriate for virt.",
+      "success": "Init starts and exits/reboots predictably; result explicitly excludes A10 driver validation."
+    },
+    {
+      "step": 4,
+      "device_approval_required": true,
+      "action": "One bounded RAM-only payload/kernel boot with an approved method and log transport.",
+      "success": "Milestone A/B logs; stop at the first failed handoff; no automatic device retries."
+    },
+    {
+      "step": 5,
+      "device_approval_required": true,
+      "action": "Add an initramfs shell, then framebuffer/input tests independently.",
+      "success": "Milestone C and repeated console/input observations, with no internal-storage dependency."
+    },
+    {
+      "step": 6,
+      "device_approval_required": true,
+      "action": "Review exact-board storage, suspend, thermals and desktop work as separate experiments.",
+      "success": "Evidence for D/E is independent of jailbreak status; any partition/firmware write remains disabled here."
+    }
+  ],
+  "access_gaps": [
+    "No physical Linux boot, serial capture, cross-compilation or QEMU test performed in this project run.",
+    "Initial browser cache misses and sandbox DNS failures were later resolved for the listed pinned text sources. Both J171 and J172 source existence is now confirmed.",
+    "The complete kernel series behind the author-reported J172 touch/storage experiment was not acquired or audited; its exact tested firmware/build combination remains unverified.",
+    "The source manifest records fetched text at exact commits, not a complete reproducible cross-build environment or proof of hardware behavior.",
+    "Refresh changing status pages and review applicable firmware/tool versions before a physical experiment."
+  ],
+  "source_manifest": [
+    {
+      "repository": "torvalds/linux",
+      "ref": "master",
+      "revision": "f47d223627f80cb7a1eb14c585fe6cb35de5e984",
+      "commit_date": "2026-10-20",
+      "confirmed_pinned_files": [
+        "arch/arm64/boot/dts/apple/t8010-j171.dts",
+        "arch/arm64/boot/dts/apple/t8010-j172.dts",
+        "arch/arm64/boot/dts/apple/t8010.dtsi",
+        "Documentation/arch/arm64/booting.rst"
+      ]
+    },
+    {
+      "repository": "HoolockLinux/docs",
+      "ref": "master",
+      "revision": "23ebe1fbc375599221553a7e1815e5de182a6b42",
+      "commit_date": "2026-09-04",
+      "confirmed_pinned_files": [
+        "features/A10.md",
+        "tutorials/SETUP.md",
+        "tutorials/SETUP_pongoOS.md"
+      ]
+    },
+    {
+      "repository": "HoolockLinux/linux",
+      "ref": "hoolock",
+      "revision": "6831bc701a6ce059e71e5aaa9488c9195bea6927",
+      "commit_date": "2026-09-03",
+      "confirmed_pinned_files": [
+        "arch/arm64/boot/dts/apple/t8010-j172.dts"
+      ]
+    },
+    {
+      "repository": "Pauli1Go/HoolockLinux-bringup-docs",
+      "ref": "main",
+      "revision": "c9d02dbcbb37d73cffb0ce048b03308c6416d8db",
+      "commit_date": "2026-07-14",
+      "confirmed_pinned_files": [
+        "docs/touch.md"
+      ]
+    },
+    {
+      "repository": "Pauli1Go/m1n1",
+      "ref": "idevice",
+      "revision": "0ac395710d7b2ac842c734400521288c93677ebe",
+      "commit_date": "2026-08-19",
+      "confirmed_pinned_files": [
+        "src/kboot.c"
+      ]
+    },
+    {
+      "repository": "checkra1n/PongoOS",
+      "ref": "master",
+      "revision": "4c9b7541629234147fcc778f0ce4162482aaccef",
+      "commit_date": "2021-11-04",
+      "confirmed_pinned_files": [
+        "README.md"
+      ]
+    }
+  ]
+}

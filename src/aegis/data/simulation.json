@@ -1,0 +1,5 @@
+{
+  "simulated": true,
+  "host": {"system": "Linux", "machine": "x86_64", "is_wsl": false},
+  "devices": [{"product_type": "iPad7,11", "product_version": "16.7.10", "build_version": "20H350", "usb_mode": "normal", "device_token": "fixture-only-no-device"}]
+}

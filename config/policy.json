@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "documented built-in policy; not a runtime override",
+  "target_models": ["iPad7,11", "iPad7,12"],
+  "physical_tool": "palera1n",
+  "physical_tool_version": "2.4",
+  "allowed_device_arguments": ["-l"],
+  "firmware_minimum": "15.0",
+  "firmware_policy_maximum": "18.4.0",
+  "device_attempts": 1,
+  "physical_timeout_seconds": 900,
+  "approval_lifetime_seconds": 300,
+  "backup_maximum_age_days": 7,
+  "automatic_restore": false,
+  "automatic_recovery": false
+}
