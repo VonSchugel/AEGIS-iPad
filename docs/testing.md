@@ -1,4 +1,28 @@
-# Software verification — 2026-10-21
+# Software verification — 2026-10-25
+
+## Version 0.2.0 review
+
+The current-source Windows/Python 3.12 review passed **234 tests, with 2 POSIX
+skips**, with warnings treated as errors. The 0.2.0 wheel and source distribution
+build successfully. New tests use both mocked responses and real loopback HTTP
+servers to verify total deadlines, worker cancellation/cleanup, proxy/redirect
+rejection, malformed JSON, source provenance and fallback records. No device
+transport or model download is used by these tests.
+
+A separate live check found the already-installed local `qwen3:0.6b` model,
+produced one structurally valid advisory from bundled public research evidence,
+and confirmed canonical rows remained unchanged. The default selected source
+used 2324 UTF-8 bytes of combined message content, within the 2800-byte budget.
+This is an integration check, not a model-accuracy evaluation; its private
+report is excluded from publication. Negation, uncertainty and language quality
+still require the evaluation described in [the local summary guide](local-llm.md).
+
+The [current GitHub workflow](https://github.com/VonSchugel/AEGIS-iPad/actions/workflows/test.yml)
+runs the full suite and fixture simulation in Debian 13/Python 3.13. The older
+version-specific results below remain historical evidence, rather than a
+substitute for the workflow result of a new commit.
+
+## Previous verification
 
 Historical Windows Python 3.12.14 run: **166 passed, 2 skipped**, exit 0. All warnings were treated as errors. The two skipped tests require POSIX process-group behavior, which Windows cannot establish. Historical machine-readable reports are excluded from the public source; reproduce the run locally.
 

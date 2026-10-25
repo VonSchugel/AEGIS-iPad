@@ -51,6 +51,53 @@ The global database option precedes the command: `aegis --db research.sqlite sim
 
 A packaged demonstration profile is available at `src/aegis/data/simulation.json`. `discover --fixture PATH` and `compatibility --fixture PATH` accept explicitly labeled data. Fixture input is never accepted by the physical execution command. `simulate` bypasses every physical adapter and records simulated evidence separately.
 
+## Optional local evidence summaries
+
+An Ollama service can summarize existing redacted evidence alongside the normal
+research pipeline. These commands never access a device or invoke the physical
+workflow:
+
+```powershell
+aegis llm-status
+aegis research
+aegis summarize-evidence
+```
+
+The default service is `http://127.0.0.1:11434` and the default model is
+`qwen3:0.6b`. Use an independently installed Ollama service with that model
+already available. Override with `LOCAL_LLM_HOST`, `LOCAL_LLM_MODEL` and
+`LOCAL_LLM_TIMEOUT_S` (default 45 seconds; must be positive and at most 60).
+Only loopback HTTP endpoints are accepted; ambient proxies and redirects are
+disabled, and `localhost` is pinned to a numeric loopback address. HTTP runs in
+an isolated worker with a total deadline and cancellation cleanup. Requests ask
+for no thinking output, four inference threads, 4096 context tokens and at most
+768 generated tokens; model/server support and actual resource use can differ.
+
+The command samples one recent canonical record by default (`--limit 1`), with
+up to six selectable using `--limit 6`. Sources are evidence/research/discovery/
+validation records, each capped at 1600 characters and explicitly marked if
+truncated. Classification, simulation status and bounded provenance are retained
+separately from the excerpt, or explicitly marked unknown. Returned source IDs
+must reference supplied records. Output is stored
+as `generated_advisory`, labeled `GENERATED_ADVISORY_UNVERIFIED`, with model and
+source provenance. It is never promoted to verified evidence or used in execution
+gates. Generated records are excluded from future summary inputs. Model failure
+or rejected output records `generated_advisory_fallback` and returns a structured
+error; original evidence is preserved. Citation validation checks provenance,
+not factual correctness. Review source records before relying on a summary.
+Combined message content exceeding 2800 UTF-8 bytes is rejected before HTTP as
+`input_too_large`, reserving context for formatting and output. Larger selections
+may exceed this budget; use fewer source records rather than relying on silent
+model-server truncation.
+
+No model-accuracy result is claimed. Preserve original observations and review
+advisory text against them, including negation, unknowns and simulated labels.
+`qwen3:1.7b-q4_K_M` is an optional candidate; it is never automatically selected.
+Set `LOCAL_LLM_MODEL` to that candidate only after installation and representative
+evaluation.
+
+See [local summary setup, safeguards and evaluation](docs/local-llm.md).
+
 ## Physical installation path
 
 The execution command is implemented and fixture-tested, but **has not been exercised on hardware**. It requires native Linux/macOS, exactly one identifiable iPad7,11 or iPad7,12, a successful singleton Apple USB inventory, known release firmware/build, a completed matching backup, and a local binary matching an official pinned SHA-256 digest. Windows and WSL are blocked. Current local firmware policy is **15.0 through 18.4.0**; this is a conservative evidence policy, not a claim that newer firmware is unsupported upstream. Dopamine and historical checkra1n paths are researched alternatives, not automatic fallbacks.

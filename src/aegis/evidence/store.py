@@ -11,6 +11,10 @@ from aegis.models import Evidence
 
 PRIVATE_KEYS = {"udid", "ecid", "serial", "serialnumber", "uniquechipid", "uniquedeviceid",
                 "device_token", "token_scope", "password", "credential", "authorization"}
+ADVISORY_SNIPPET_CHARS = 1600
+ADVISORY_CONTEXT_PAYLOAD_CHARS = 65_536
+ADVISORY_METADATA_CHARS = 256
+ADVISORY_CONTEXT_FIELDS = ("classification", "simulated", "status", "limitations", "source_url", "revision", "known_limits")
 
 
 def redact(value):
@@ -24,6 +28,43 @@ def redact(value):
         value = re.sub(r"(?i)\b(?:UDID|ECID|SERIAL(?:NUMBER)?|UniqueDeviceID)\s*[:=]\s*\S+", "[REDACTED IDENTIFIER]", value)
         return re.sub(r"(?i)(?<![a-z0-9])[0-9a-f]{16,64}(?![a-z0-9])", "[REDACTED DIGEST/ID]", value)
     return value
+
+
+def _advisory_context(payload_text: str, payload_length: int) -> dict:
+    """Extract provenance before snippet truncation, within a fixed parse budget."""
+    context = {field: "UNKNOWN" for field in ADVISORY_CONTEXT_FIELDS}
+    context.update(state="unknown", truncated=False, truncated_fields=[], unknown_fields=list(ADVISORY_CONTEXT_FIELDS))
+    if payload_length > ADVISORY_CONTEXT_PAYLOAD_CHARS:
+        context.update(reason="payload_exceeds_context_budget", truncated=True, truncated_fields=list(ADVISORY_CONTEXT_FIELDS))
+        return context
+    try:
+        payload = json.loads(payload_text)
+    except (ValueError, TypeError, RecursionError):
+        context["reason"] = "invalid_payload_json"
+        return context
+    if not isinstance(payload, dict):
+        context["reason"] = "payload_is_not_an_object"
+        return context
+    context["state"] = "available"
+    for field in ADVISORY_CONTEXT_FIELDS:
+        value = payload.get(field)
+        if value is None or (field == "simulated" and type(value) is not bool):
+            continue
+        if field in {"classification", "status", "source_url", "revision"} and not isinstance(value, str):
+            continue
+        try:
+            safe = redact({field: value})[field]
+            encoded = json.dumps(safe, ensure_ascii=True, sort_keys=True)
+        except (ValueError, TypeError, RecursionError):
+            continue
+        context["unknown_fields"].remove(field)
+        if len(encoded) > ADVISORY_METADATA_CHARS:
+            context[field] = {"state": "truncated", "json_prefix": encoded[:ADVISORY_METADATA_CHARS]}
+            context["truncated"] = True
+            context["truncated_fields"].append(field)
+        else:
+            context[field] = safe
+    return context
 
 
 class EvidenceStore:
@@ -48,6 +89,19 @@ class EvidenceStore:
 
     def has_ids(self, ids: list[int]) -> bool:
         return bool(ids) and all(self.conn.execute("SELECT 1 FROM records WHERE id=? AND run_id=?", (i, self.run_id)).fetchone() for i in ids)
+
+    def advisory_sources(self, limit: int = 1) -> list[dict]:
+        """Bounded redacted snapshots; generated outputs cannot become inputs."""
+        if type(limit) is not int or not 1 <= limit <= 6:
+            raise ValueError("Advisory source limit must be between one and six")
+        rows = self.conn.execute(
+            "SELECT id,run_id,kind,created_at,substr(payload,1,?),length(payload) "
+            "FROM records WHERE kind IN ('evidence','research_snapshot','discovery','validation') "
+            "ORDER BY id DESC LIMIT ?", (ADVISORY_CONTEXT_PAYLOAD_CHARS + 1, limit)
+        ).fetchall()
+        return [{"id": row[0], "run_id": row[1], "kind": row[2], "created_at": row[3],
+                 "payload_text": redact(row[4][:ADVISORY_SNIPPET_CHARS]), "truncated": row[5] > ADVISORY_SNIPPET_CHARS,
+                 "context": _advisory_context(row[4], row[5])} for row in reversed(rows)]
 
     def retain_private_log(self, name: str, content: str) -> bool:
         """Raw tool logs never enter report records or public JSONL exports."""

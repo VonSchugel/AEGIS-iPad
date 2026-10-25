@@ -15,6 +15,11 @@ passed. Target-host USB access and hardware behavior still require independent
 verification; installing the host application does not jailbreak a device.
 Hardware installation and native Linux boot on an iPad remain unverified.
 
+Version 0.2.0 adds optional local model summaries. Generated advice is unverified,
+cannot authorize device operations, and is excluded from later summary inputs.
+The version-specific software and integration results are in `docs/testing.md`;
+model accuracy requires a separate representative evaluation.
+
 The encrypted-backup verification limitation remains a blocker for physical
 execution with such a backup. Retain protected backups rather than weakening
 them to bypass the gate. Device-modifying actions require their explicit

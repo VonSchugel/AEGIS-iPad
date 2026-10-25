@@ -228,3 +228,41 @@ def export_evidence(ctx, output):
         emit({"records": store.export(output), "output": str(output)})
     finally:
         store.close()
+
+
+@main.command("llm-status")
+@handled
+def llm_status():
+    """Check local Ollama and selected model availability; no device access."""
+    from aegis.adapters.local_llm import LocalLLMError, LocalLLMProvider
+    try:
+        result = asyncio.run(LocalLLMProvider().status())
+    except LocalLLMError as error:
+        result = {"provider": "ollama", "reachable": False, "model_installed": False,
+                  "status": error.code}
+    emit(result)
+
+
+@main.command("summarize-evidence")
+@click.option("--limit", type=click.IntRange(1, 6), default=1, show_default=True)
+@click.pass_context
+@handled
+def summarize_evidence(ctx, limit):
+    """Summarize bounded existing redacted records as unverified local advice."""
+    from aegis.adapters.local_llm import LocalLLMError, LocalLLMProvider
+    store = EvidenceStore(ctx.obj["db"])
+    try:
+        sources = store.advisory_sources(limit)
+        provider = None
+        try:
+            provider = LocalLLMProvider()
+            result = asyncio.run(provider.summarize(sources))
+        except LocalLLMError as error:
+            store.add("generated_advisory_fallback", {"status": "fallback", "reason": error.code,
+                       "model": provider.model if provider is not None else None,
+                       "source_ids": [source["id"] for source in sources]})
+            raise WorkflowError("LOCAL_LLM_ADVISORY_UNAVAILABLE", "Canonical evidence is unchanged; local summary was unavailable or rejected", {"reason": error.code}) from None
+        result["record_id"] = store.add("generated_advisory", result)
+        emit(result)
+    finally:
+        store.close()
