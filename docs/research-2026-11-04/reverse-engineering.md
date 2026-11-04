@@ -1,0 +1,66 @@
+# Reverse engineering integration review
+
+Checked: **2026-11-04**. Scope: offline, owner-supplied artifacts and the existing AEGIS source. No firmware artifact, REA server, decompiler provider or dynamic device session was exercised in this review. Remote release metadata and source files were read; this establishes what was published, not successful execution on this host. See [the source ledger](re-sources.json).
+
+## Decision
+
+Keep reverse engineering independent of the physical jailbreak workflow. Preserve the existing admission/hash inspector; add one bounded metadata adapter only when an artifact corpus can validate it. Prefer an already available LLVM reader, or the currently pinned optional LIEF parser, for sections, symbols and load mappings. Use **one explicitly selected Ghidra/REA provider** for focused decompilation when its actual host, version and format prerequisites pass. Keep Frida opt-in and experiment-specific. Do not introduce a mandatory multi-agent or MCP framework into ordinary inspection.
+
+This recommendation is a **HYPOTHESIS** about integration cost and reliability, supported by documented interfaces and the verified source architecture. No comparative local latency, accuracy or memory benchmark was performed. The experiment below can change the choice.
+
+## What the existing application demonstrates
+
+**VERIFIED (source inspection):** `agents/reverse_engineering.py` admits regular files, rejects links and oversized inputs, hashes input bytes, checks observable file changes and identifies bounded executable-header hints. It leaves symbols, strings and call graphs unknown. `adapters/rea.py` implements candidate discovery, an allowlist, CLI diagnostics and strict Evidence-envelope parsing. It is **not an MCP transport** and does not start a native provider. Source repository investigation needs ordinary source tools; REA belongs where the question actually depends on a binary.
+
+The six `agents` are deterministic Python components. Their name does not imply six model processes. Retain their interfaces where useful; a destructive rename offers little value. Shared artifact admission, subprocess isolation, evidence storage and run ownership should serve all research workflows. A single reasoning session can interpret results; independent research agents help when questions and file ownership are separable. Neither model consensus nor generated summaries may satisfy an execution gate.
+
+## Tool landscape and shortlist
+
+All capability and host statements below are **DOCUMENTED**, unless explicitly qualified. “Current” means the release API observed on the checked date; it does not recommend automatic upgrades.
+
+| Tool / observed release | Useful interface and role | Limits, cost and integration choice |
+|---|---|---|
+| REA 6.8.0, 2026-10-25 | CLI and MCP share Evidence contracts; explicit provider/session ownership; retained views preserve parent evidence | MIT wrapper; external engines retain their own licenses. Requires compatible Node and provider. Keep optional; audit live schemas and complete Evidence retention. |
+| Ghidra 12.2, 2026-10-22 | Headless Java scripts; official PyGhidra supplies CPython access; GUI for expert adjudication | Apache-2.0 plus bundled notices. JVM/native decompiler and analysis database add resource/startup cost; no local measurements. Direct adapter and REA have different version constraints. |
+| Rizin 0.9.1, 2026-06-29 | CLI, `rz-bin`, JSON commands and `rzpipe`; portable ARM64/Mach-O/ELF inspection | Maintained radare2 fork; LGPL/GPL components. Useful second opinion. Do not run arbitrary generated command strings. |
+| radare2 6.2.4, 2026-10-05 | CLI/JSON, `rabin2`, r2pipe; dyld/kernelcache formats and broad analysis | LGPLv3 core; plugin licenses vary. Read/write/debug capabilities require a narrow wrapper. Choose Rizin **or** radare2 initially, not both by default. |
+| LLVM object tools | `llvm-readobj` headers/sections/symbols/relocations; `llvm-objdump`/`llvm-otool` disassembly and Mach-O views | Apache-2.0 with LLVM exception. Strong deterministic comparison oracle, no decompilation. Pin executable/version/digest; do not assume JSON covers every format. |
+| LIEF 1.0.0, 2026-07-12 | C++, Python and Rust parsing of PE/ELF/Mach-O; normalized metadata | Apache-2.0 regular project. Current AEGIS pin is 0.16.6; retain until corpus tests justify migration. Mutation APIs must stay outside the read-only adapter. |
+| Capstone 5.0.6 pinned locally; upstream latest API returned 6.0.0-Alpha11, 2026-09-21 | C/Python instruction decoding, including AArch64; explicit ranges/modes | BSD-style license. It decodes instructions, not executable loaders, decompilation or reliable call graphs. “Latest” API marks Alpha11 non-prerelease despite its name; do not infer production stability. |
+| Frida 17.25.2, 2026-11-02 | Python/Node APIs and CLI for explicitly authorized runtime instrumentation | wxWindows Library Licence in repository; component notices also matter. iOS prerequisites differ between jailbroken server and debuggable-app/Gadget paths. Not boot-chain visibility or a Linux capability test. |
+
+Sources: [REA release](https://github.com/morluto/rea/releases/tag/rea-agents-6.8.0), [Ghidra release](https://github.com/NationalSecurityAgency/ghidra/releases/tag/Ghidra_12.2_build), [PyGhidra](https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.2_build/Ghidra/Features/PyGhidra/src/main/py/README.md), [Rizin](https://github.com/rizinorg/rizin/blob/dev/README.md), [radare2](https://github.com/radareorg/radare2/blob/master/README.md), [LLVM readobj](https://llvm.org/docs/CommandGuide/llvm-readobj.html), [LLVM objdump](https://llvm.org/docs/CommandGuide/llvm-objdump.html), [LIEF](https://github.com/lief-project/LIEF/blob/1.0.0/README.md), [Capstone](https://github.com/capstone-engine/capstone/blob/next/README.md), [Frida iOS documentation](https://frida.re/docs/ios/).
+
+### Version and host constraints that affect AEGIS
+
+* **DOCUMENTED:** REA 6.8.0 package declares Node `^22.23.4 || ^24.22.1 || >=26.12.1`. Its installer does not upgrade Node. Recheck a selected runtime against the pinned package; an installed workflow skill does not prove an active MCP connection. [Package](https://github.com/morluto/rea/blob/160d821ac9a0310afcb8d1fc427862dd6508add5/package.json)
+* **DOCUMENTED:** the pinned REA installation guide accepts **Ghidra 12.1.x**, with reported verification on **12.1.4/JDK 21**. Linux/macOS x64 and arm64 have additional native-decompiler prerequisites. The separately current Ghidra 12.2 guide requires **JDK 25**. Installing latest Ghidra therefore does not satisfy the published REA 6.8.0 matrix. [REA installation](https://github.com/morluto/rea/blob/160d821ac9a0310afcb8d1fc427862dd6508add5/docs/installation.md), [Ghidra requirements](https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.2_build/GhidraDocs/GettingStarted.md)
+* **DOCUMENTED:** REA Windows P0 covers native x86/x64/ARMNT/ARM64 **PE**, plus a separately constrained raw 6502 lane on fixed NTFS volumes. This is not documented native-Windows Mach-O/ELF/Apple-firmware parity. Direct Ghidra capability cannot be substituted for REA admission. [Windows boundary](https://github.com/morluto/rea/blob/160d821ac9a0310afcb8d1fc427862dd6508add5/docs/windows-ghidra-p0.md)
+* **DOCUMENTED:** REA firmware inspection uses caller-supplied Binwalk 3.1.x; extraction uses Unblob 26.6.x, with parser verification reported for 3.1.0/26.6.4 on Linux x64. Input allowance is 128 MiB, so an entire IPSW is not an assumed input. Region signatures do not prove partitions, encryption or valid executable children. [Firmware boundary](https://github.com/morluto/rea/blob/160d821ac9a0310afcb8d1fc427862dd6508add5/docs/firmware-analysis.md)
+* **DOCUMENTED:** regular LIEF and LIEF Extended are different packages. Extended ObjC, dyld-cache and other services require separate access; some changes do not have public commit equivalents. Do not promise these from AEGIS's regular optional dependency. [Extended scope](https://lief.re/doc/stable/extended/intro.html)
+
+## Forks, patches and transferable optimizations
+
+**DOCUMENTED, author-reported experiment:** CryptoJones/rea's retained-function-summary work was merged as [PR #5660](https://github.com/morluto/rea/pull/5660), merge `1a48a820208880c0cc383d196c7ed96d35479412`. The report compares one completed paired Linux Ghidra task and estimates a 97.66% reduction in SDK-exchange tokens, with more exchanges. Those are estimator results, not billed model tokens, and baseline-first/shared-cache controls limit the timing comparison. AEGIS did not reproduce it. Prefer the merged upstream feature rather than carry the fork. `analyze_function` now defaults to a retained summary; retain the full parent and page only relevant facets.
+
+**DOCUMENTED, author-reported experiment:** [PR #5662](https://github.com/morluto/rea/pull/5662), merge `a062529bb2aa064be37e82df39c59c4fa798fe50`, introduces optional per-procedure Ghidra decompilation deadlines. An incomplete pseudocode result can preserve a session. Unset remains unbounded; global caller deadlines and incomplete cleanup remain separate. It includes Linux provider checks but no newly established Windows/macOS parity. Adopt the control through a reviewed upstream version; do not equate timeout with completed cleanup.
+
+**DOCUMENTED, author-reported experiment:** [PR #5975](https://github.com/morluto/rea/pull/5975), merge `aa51e4343963fdd0b97ec2ebdc3c41579fd9cb38`, makes compact input advertisements default. Its paired tasks report smaller estimated catalog/exchange size without stable wall/CPU/memory gains; actual Codex token savings remain unproven. This supports measuring context transfer separately from computation.
+
+**DOCUMENTED:** [rz-ghidra](https://github.com/rizinorg/rz-ghidra/blob/dev/README.md) embeds Ghidra's C++ decompiler without requiring the Java application. Its Rizin API version must match; [v0.9.0](https://github.com/rizinorg/rz-ghidra/releases/tag/v0.9.0) documents Rizin 0.9.x compatibility. This is a credible lower-startup-cost **HYPOTHESIS**, not demonstrated equivalence in recovered functions, types or pseudocode. It is LGPLv3, with separate upstream provenance. Compare it only if whole-Ghidra startup is a measured bottleneck.
+
+**DOCUMENTED:** [ghidra_kernelcache](https://github.com/0x36/ghidra_kernelcache) describes iOS 12–15, Ghidra 10.1_PUBLIC/10.2_DEV and iometa-based C++ reconstruction. These historical operating conditions do not establish compatibility with unknown target firmware or Ghidra 12.x. Reuse ideas and small parsers after fixture review, not an automatic plugin bundle. [angr](https://docs.angr.io/en/latest/) provides selective symbolic analysis, but path/state explosion and missing platform models make it a focused follow-up rather than the default firmware pipeline.
+
+No fork was selected solely for a recent push or an optimization claim. Search followed relevant upstream release links into concrete contributing forks/PRs; it was not an exhaustive audit of every fork. No equal-task performance comparison was reproduced locally.
+
+## Minimal adapter contract and verification experiment
+
+An analysis request should bind artifact SHA-256, explicit format/architecture/slice, provider identity/version, requested scope, address coordinate system and resource limits. A result should preserve original producer output by content digest, normalized observations, coverage, limitations, errors and parent Evidence IDs. A successful parser must not imply successful decompilation or runtime behavior. Cache only by input digest **and** complete analysis profile; changed options invalidate cached facts.
+
+1. Build a redistributable corpus: compiled ARM64 ELF/Mach-O fixtures with known source, stripped variants, fat slices, malformed/truncated inputs and a separately authorized firmware sample. Record independent ground truth before testing tools.
+2. Compare the pinned metadata provider against LLVM on format, architecture, segment ranges and symbols; verify source digest unchanged. Refuse out-of-file mappings; preserve unsupported features as unknown.
+3. Compare a fixed set of known functions in one deep provider. Evaluate recovered boundaries/calls against fixture truth, never just syntactically plausible pseudocode. Use manual review for ambiguity and independent engines only for disputed facts.
+4. Measure cold/warm latency, process-family peak memory/CPU, result bytes, tool calls, model tokens when available, timeout/cancellation cleanup and repeatability. Separate provider work from model interpretation. Accept only if correctness matches and actual cost justifies the dependency.
+5. Keep one heavy provider session per owned artifact. Parallelize independent source research and lightweight metadata; serialize physical USB access. Abort/reconcile incomplete cleanup before opening a new session.
+
+**UNKNOWN:** target artifact availability, exact firmware, tool runtime accuracy on its kernelcache, decompilation throughput and any AEGIS token/memory advantage. No local fixture is a substitute for a target-device result. Until these are resolved, retain current dependency pins and report optional analysis as unavailable rather than upgrading providers speculatively.

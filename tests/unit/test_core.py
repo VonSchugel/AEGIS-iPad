@@ -9,7 +9,7 @@ import sqlite3
 import pytest
 
 from aegis.evidence import EvidenceStore, redact
-from aegis.models import Evidence, State, WorkflowError
+from aegis.models import Evidence, GateReceipt, State, WorkflowError
 from aegis.orchestration import StateMachine
 from aegis.orchestration.simulation import simulate
 from aegis.safety.approval import Approval, plan_digest
@@ -149,7 +149,7 @@ def test_approval_exact_bound_expiring_and_single_use():
 def test_state_machine_requires_current_run_evidence_and_legal_edge():
     store = EvidenceStore()
     machine = StateMachine(store)
-    evidence = store.add("observation", {"devices": 1})
+    evidence = store.add("gate_receipt", GateReceipt(target=State.IDENTIFY_DEVICE, passed=True, simulated=False, observation={"devices": 1}).model_dump(mode="json"))
     with pytest.raises(WorkflowError):
         machine.advance(State.EXECUTE_SUPPORTED_JAILBREAK, [evidence], satisfied=True)
     with pytest.raises(WorkflowError):

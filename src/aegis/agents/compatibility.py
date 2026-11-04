@@ -77,7 +77,10 @@ class CompatibilityAgent:
         dopamine_ok = bool(product in self.data["target_product_types"] and version and _version(dopamine["reviewed_min_version"]) <= version <= _version(dopamine["reviewed_max_version"]))
         dopamine_blockers = list(common)
         if version and not dopamine_ok:
-            dopamine_blockers.append("Firmware is outside Dopamine 3.0.11's documented arm64 15.0–18.7.1 range.")
+            dopamine_blockers.append(
+                f"Firmware is outside Dopamine {dopamine['version']}'s documented arm64 "
+                f"{dopamine['reviewed_min_version']}–{dopamine['reviewed_max_version']} range."
+            )
         dopamine_blockers.append("Manual research alternative: app installation/signing prerequisites are not implemented or verified by AEGIS.")
         options = [
             {"name": "palera1n", "version": palera1n["version"], "revision": palera1n["revision"], "firmware_compatible": firmware_ok and not common, "eligible": not pale_blockers, "manual_only": False, "blockers": pale_blockers, "classification": "SUPPORTED BY DOCUMENTATION" if firmware_ok and not common else "UNKNOWN", "persistence": "semi-tethered"},

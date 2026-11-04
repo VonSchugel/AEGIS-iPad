@@ -1,5 +1,8 @@
 include requirements-dev.lock
+include AGENTS.md
 include CHANGELOG.md NOTICE.md SETUP-iPadOS-17.0.3.md
 recursive-include docs *.md
+recursive-include docs *.json
 recursive-include config *.json
 recursive-include tests *.py
+recursive-include tools *.py

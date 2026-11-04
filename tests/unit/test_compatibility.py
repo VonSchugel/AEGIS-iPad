@@ -72,7 +72,7 @@ def test_dopamine_current_documented_range_is_manual_only(device, host):
     result = CompatibilityAgent().evaluate(device, host)
     dopamine = next(option for option in result["options"] if option["name"] == "Dopamine")
     assert dopamine["firmware_compatible"] is True
-    assert dopamine["version"] == "3.0.11"
+    assert dopamine["version"] == "3.0.13"
     assert dopamine["manual_only"] is True
     assert dopamine["eligible"] is False
     assert result["method"] is None
@@ -82,6 +82,17 @@ def test_dopamine_range_does_not_extend_to_18_7_2(device, host):
     device.update(product_version="18.7.2", build_version="22H124")
     option = CompatibilityAgent().evaluate(device, host)["options"][1]
     assert option["firmware_compatible"] is False
+
+
+def test_dopamine_blocker_uses_injected_snapshot_version_and_range(device, host):
+    data = load_compatibility_data()
+    data["methods"]["dopamine"].update(
+        version="99.1-review", reviewed_min_version="17.0", reviewed_max_version="17.1",
+    )
+    option = CompatibilityAgent(data).evaluate(device, host)["options"][1]
+    assert option["version"] == "99.1-review"
+    assert option["firmware_compatible"] is False
+    assert "Firmware is outside Dopamine 99.1-review's documented arm64 17.0–17.1 range." in option["blockers"]
 
 
 def test_checkm8_never_becomes_installation_authorization(device, host):

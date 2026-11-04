@@ -1,5 +1,10 @@
 # Native Linux feasibility: iPad 7 / A10
 
+See the [2026-11-04 exact-board feasibility review](research-2026-11-04/linux-feasibility.md)
+for newer J172 derivative sources and independent L0–L5 acceptance criteria.
+The assessment below is historical; all local physical milestones remain
+NOT_TESTED.
+
 Assessment date: **2026-10-20**. No native Linux boot, kernel cross-build, QEMU run
 or physical-device experiment was performed by AEGIS. Exact attached board and
 firmware remain unknown. `aegis linux-status` returns the machine-readable dated

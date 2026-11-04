@@ -90,6 +90,19 @@ class EvidenceStore:
     def has_ids(self, ids: list[int]) -> bool:
         return bool(ids) and all(self.conn.execute("SELECT 1 FROM records WHERE id=? AND run_id=?", (i, self.run_id)).fetchone() for i in ids)
 
+    def current_records(self, ids: list[int]) -> list[dict]:
+        """Bounded gate lookup; missing, duplicated or foreign IDs fail closed."""
+        if not ids or len(ids) > 32 or any(type(i) is not int for i in ids) or len(set(ids)) != len(ids):
+            return []
+        placeholders = ",".join("?" for _ in ids)
+        rows = self.conn.execute(
+            f"SELECT id,kind,payload FROM records WHERE run_id=? AND id IN ({placeholders})",
+            (self.run_id, *ids),
+        ).fetchall()
+        if len(rows) != len(ids):
+            return []
+        return [{"id": row[0], "kind": row[1], "payload": json.loads(row[2])} for row in rows]
+
     def advisory_sources(self, limit: int = 1) -> list[dict]:
         """Bounded redacted snapshots; generated outputs cannot become inputs."""
         if type(limit) is not int or not 1 <= limit <= 6:

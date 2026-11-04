@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-04",
+  "scope": ["iPad7,11", "iPad7,12", "A10/T8010", "jailbreak and boot-chain research"],
+  "classification_note": "VERIFIED applies only to directly collected local observations. DOCUMENTED maps to the application's SUPPORTED BY DOCUMENTATION. No hardware result was obtained.",
+  "sources": [
+    {
+      "id": "JB001", "url": "https://github.com/palera1n/palera1n/blob/3ba32c40dbd90b9bcff1a71b5f9ee26c3388b0ad/README.md",
+      "revision": "v2.4 / 3ba32c40dbd90b9bcff1a71b5f9ee26c3388b0ad", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "README names iPad 7, A8-A11, iPadOS15+, Linux/macOS and cable/host caveats. A11-specific passcode caveats are not target A10 requirements.",
+      "limitations": ["Support claim, no local hardware test", "Broad firmware slogan is not exact-build evidence"],
+      "reproduction": "Read tagged README Device Support and Computer Requirements; git ls-remote refs/tags/v2.4."
+    },
+    {
+      "id": "JB002", "url": "https://github.com/palera1n/palera1n/releases/tag/v2.4",
+      "revision": "v2.4 / 3ba32c40dbd90b9bcff1a71b5f9ee26c3388b0ad", "published_at": "2026-07-27", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Still marked latest stable. Lists standalone Linux/macOS artifacts, macOS universal10.8+, tvOS changes and iPod DFU guidance fix.",
+      "limitations": ["No release binary downloaded or executed", "UI signature badge not independently cryptographically verified"],
+      "reproduction": "Compare official stable release with prerelease markers on release list."
+    },
+    {
+      "id": "JB003", "url": "https://github.com/palera1n/palera1n/releases/tag/v2.2",
+      "revision": "v2.2 / short revision2d795c1", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Release notes explicitly report iPadOS18.4 support fixes.",
+      "limitations": ["No exact observed firmware available", "Does not establish an upstream upper support ceiling"],
+      "reproduction": "Read release Fixes section."
+    },
+    {
+      "id": "JB004", "url": "https://docs.palera.in/installing-palera1n/",
+      "revision": "mutable live guide", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Guide rejects ordinary Windows VM/WSL workflows, documents rootless command and manual loader step, and contains older Dopamine guidance.",
+      "limitations": ["Guide can change", "Host reliability warnings are not quantified comparisons", "Dopamine range text lags its tagged README"],
+      "reproduction": "Inspect Windows/Linux warnings, running palera1n and postboot loader paragraphs."
+    },
+    {
+      "id": "JB005", "url": "https://github.com/palera1n/palera1n/releases/tag/v3.0.0-beta.3",
+      "revision": "42d6506f38a0d6c1ace38f6d033fbcf13d5ff71a", "published_at": "2026-10-18", "checked_at": "2026-11-04", "classification": "EXPERIMENTAL", "confidence": "high",
+      "observation": "Prerelease adds CLI DFU guidance and experimental Linux AppImage with GUI; packaging differs from v2.4.",
+      "limitations": ["No adapter or target test", "No measured benefit"],
+      "reproduction": "Read release notes and resolve refs/tags/v3.0.0-beta.3."
+    },
+    {
+      "id": "JB006", "url": "https://github.com/palera1n/palera1n/pull/765",
+      "revision": "mutable open PR765, koputer to main,184 commits displayed", "checked_at": "2026-11-04", "classification": "EXPERIMENTAL", "confidence": "medium",
+      "observation": "Author describes Rust idevice migration, selectable exploit libraries, Windows source compilation with libusbK, and closed-source exploit code in macOS/Linux binaries.",
+      "limitations": ["Open branch design, not stable support policy", "Full dependency/binary audit not performed", "No Windows target experiment"],
+      "reproduction": "Read PR introduction and licensing discussion; compare release tags separately."
+    },
+    {
+      "id": "JB007", "url": "https://github.com/palera1n/palera1n/releases/tag/v3.0.0-beta.2",
+      "revision": "c98dd080dd442069e3c143094ccb45de46975547", "checked_at": "2026-11-04", "classification": "EXPERIMENTAL", "confidence": "high",
+      "observation": "Notes describe GUI/DFU fixes, changed late-exit option and internal Pongo helper refactoring.",
+      "limitations": ["Reliability advantage is author-asserted and unquantified", "No target benchmark"],
+      "reproduction": "Read release notes and resolve tag."
+    },
+    {
+      "id": "JB008", "url": "https://github.com/opa334/Dopamine/blob/5b1d2c1c3bf54dd8e3641d29c60cd3a0c13cde88/README.md",
+      "revision": "3.0.13 / 5b1d2c1c3bf54dd8e3641d29c60cd3a0c13cde88", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Tagged README documents rootless semi-untethered arm64 range15.0-18.7.1. A12/A13 iOS26 range must not be applied to A10.",
+      "limitations": ["Architecture-range claim, not target experiment", "Installation/signing prerequisite still separate"],
+      "reproduction": "Read tagged README; resolve refs/tags/3.0.13 with git ls-remote."
+    },
+    {
+      "id": "JB009", "url": "https://github.com/opa334/Dopamine/releases/tag/3.0.13",
+      "revision": "5b1d2c1c3bf54dd8e3641d29c60cd3a0c13cde88", "published_at": "2026-11-03T16:28:05Z", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Latest release fixes spawn-attribute reuse and adjusts snapshot redirection.",
+      "limitations": ["No IPA downloaded or executed", "Release notes are author-reported fixes"],
+      "reproduction": "Read release page and commit version bump; latest-release API metadata was available before rate limiting."
+    },
+    {
+      "id": "JB010", "url": "https://github.com/opa334/Dopamine/blob/5b1d2c1c3bf54dd8e3641d29c60cd3a0c13cde88/Application/Dopamine/Exploits/ClearSword/Info.plist",
+      "revision": "5b1d2c1c3bf54dd8e3641d29c60cd3a0c13cde88", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Kernel-exploit metadata includes version/build ranges and contiguousMapping requirement.",
+      "limitations": ["Single exploit metadata cannot establish full package compatibility", "No runtime exploit selection inspected or tested"],
+      "reproduction": "Inspect DPSupportedRanges, DPSupportInclude, DPExploitType and DPExploitRequirements."
+    },
+    {
+      "id": "JB011", "url": "https://github.com/opa334/Dopamine/releases/tag/3.0.7",
+      "revision": "3.0.7 / short revision38f3240", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Release documents a previous out-of-bounds kernel-write/update defect and mitigation.",
+      "limitations": ["Historical defect report, not current measured failure rate"],
+      "reproduction": "Read release fix notes."
+    },
+    {
+      "id": "JB012", "url": "https://ellekit.space/dopamine/",
+      "revision": "mutable live website", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "medium",
+      "observation": "Website groups architecture/version support more broadly than tagged README and links installation guides.",
+      "limitations": ["Use architecture-specific tagged package claims for target assessment", "Guide installation route not tested"],
+      "reproduction": "Compare website support text with3.0.13 README."
+    },
+    {
+      "id": "JB013", "url": "https://checkra.in/releases/0.12.4-beta",
+      "revision": "0.12.4 beta release page", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Historical beta offers Linux/macOS assets and firmware/device caveats.",
+      "limitations": ["No current exact iPad7 firmware eligibility established", "No full-source equivalence inferred from PongoOS"],
+      "reproduction": "Read official release notes and asset list; compare current official release index."
+    },
+    {
+      "id": "JB014", "url": "https://github.com/axi0mX/ipwndfu/blob/0e28932ec6a2a570b10fd77e50bda4216418cd98/README.md",
+      "revision": "0e28932ec6a2a570b10fd77e50bda4216418cd98", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "README lists T8010, Mac/Linux/libusb and explicitly distinguishes boot-ROM access from a complete jailbreak.",
+      "limitations": ["Implementation is historical", "No target boot tested"],
+      "reproduction": "Read pinned README; remote HEAD resolved with Git."
+    },
+    {
+      "id": "JB015", "url": "https://github.com/checkra1n/PongoOS/blob/4c9b7541629234147fcc778f0ce4162482aaccef/README.md",
+      "revision": "4c9b7541629234147fcc778f0ce4162482aaccef", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Pre-boot environment exposes shell/modules and raw/Mach-O build products with Darwin-oriented tooling.",
+      "limitations": ["No PongoOS built or booted", "No device peripheral support inferred"],
+      "reproduction": "Read README Build artifacts and Structure; resolve upstream HEAD."
+    },
+    {
+      "id": "JB016", "url": "https://github.com/palera1n/PongoOS/commit/e98323f8a09abd80fc4cbcd74dee023b91a1ec22",
+      "revision": "iOS15 / e98323f8a09abd80fc4cbcd74dee023b91a1ec22", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Fork's latest inspected commit disables an unnecessary root_livefs patch.",
+      "limitations": ["Concrete source change does not prove target reliability improvement", "Full fork history not audited"],
+      "reproduction": "Read commit diff and resolve fork HEAD."
+    },
+    {
+      "id": "JB017", "url": "https://github.com/palera1n/PongoOS/blob/e98323f8a09abd80fc4cbcd74dee023b91a1ec22/LICENSE.md",
+      "revision": "e98323f8a09abd80fc4cbcd74dee023b91a1ec22", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Whole-project MIT statement includes separate third-party notices, including Apache USB controller driver terms.",
+      "limitations": ["No complete release licensing inventory performed"],
+      "reproduction": "Read license headings and third-party sections."
+    },
+    {
+      "id": "JB018", "url": "https://github.com/0x7ff/gaster/tree/7fffffff38a1bed1cdc1c5bae0df70f14395129b",
+      "revision": "7fffffff38a1bed1cdc1c5bae0df70f14395129b", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "T8010 source handling; macOS IOKit and libusb/OpenSSL build paths; Apache-2.0 source license.",
+      "limitations": ["No build or hardware execution", "Tracked payload blobs exist in fetched Git objects"],
+      "reproduction": "Read pinned gaster.c, Makefile and LICENSE."
+    },
+    {
+      "id": "JB019", "url": "https://github.com/palera1n/gaster/tree/20958256a4706b6396e2d9ee9ca742618459980b",
+      "revision": "20958256a4706b6396e2d9ee9ca742618459980b", "checked_at": "2026-11-04", "classification": "VERIFIED", "confidence": "high",
+      "observation": "Local two-snapshot Git comparison against0x7ff7fffffff found5 changed files,+153/-53. Build provenance/CI and USB logic differ.",
+      "limitations": ["Static comparison only", "Shallow snapshots; no full ancestry assertion", "No performance or reliability measurement"],
+      "reproduction": "Fetch original HEAD and fork main into a no-checkout repository; git diff --stat ORIGINAL FORK and git diff ORIGINAL FORK -- gaster.c Makefile."
+    },
+    {
+      "id": "JB020", "url": "https://github.com/palera1n/gaster/blob/20958256a4706b6396e2d9ee9ca742618459980b/gaster.c",
+      "revision": "20958256a4706b6396e2d9ee9ca742618459980b", "checked_at": "2026-11-04", "classification": "HYPOTHESIS", "confidence": "medium",
+      "observation": "Fork removes positive USB timeout validation while timeout modulo expressions remain; USB_TIMEOUT=0 may reach a zero divisor.",
+      "limitations": ["Inferred from source; no executable test", "Not part of current AEGIS execution adapter"],
+      "reproduction": "Compare main timeout parsing and checkm8_stall/checkm8_stage_setup with original. Validate only in a separately reviewed harness without USB."
+    },
+    {
+      "id": "JB021", "url": "https://github.com/alfiecg24/Achilles/blob/b29fa9d2dd65b72a0502fb04a396d5df6127b4cf/README.md",
+      "revision": "b29fa9d2dd65b72a0502fb04a396d5df6127b4cf", "checked_at": "2026-11-04", "classification": "EXPERIMENTAL", "confidence": "high",
+      "observation": "Author-tested list includes iPhone7, iPhoneX and A10X iPad Pro; Linux support explicitly experimental; PongoOS and supplied jailbreak components supported.",
+      "limitations": ["iPad7 absent from test list", "No local reproduction", "MIT repository with credited external components"],
+      "reproduction": "Read pinned tested-device list and Linux caveat; resolve HEAD."
+    },
+    {
+      "id": "JB022", "url": "https://github.com/pgarba/King/tree/8e725e9e4677fddf130589662c2aa83420354943",
+      "revision": "8e725e9e4677fddf130589662c2aa83420354943", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "medium",
+      "observation": "Historical C/C++ checkm8 port documents Windows/libusbK, Linux and macOS paths; T8010 list omits iPad7.",
+      "limitations": ["No current target test or maintained release guarantee", "Top-level license not observed; complete licensing UNKNOWN"],
+      "reproduction": "Inspect README and root inventory; resolve HEAD."
+    },
+    {
+      "id": "JB023", "url": "https://github.com/palera1n/palen1x/blob/51e63077a76f4d5c9dc32fe55591af139a963486/README.md",
+      "revision": "51e63077a76f4d5c9dc32fe55591af139a963486", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Host Linux ISO packaging palera1n, with installation-guide link and source build workflow.",
+      "limitations": ["No ISO built or downloaded", "No target support added by packaging", "No removable-media write"],
+      "reproduction": "Read pinned README and resolve HEAD."
+    },
+    {
+      "id": "JB024", "url": "https://github.com/roothide/Palera1n-roothide/tree/a4f4365f560ec905e59df5a48be112fecf818a80",
+      "revision": "a4f4365f560ec905e59df5a48be112fecf818a80", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "medium",
+      "observation": "Wrapper links modified PongoOS,jbinit,palen1x and an additional application path; root inventory shows no top-level license.",
+      "limitations": ["Linked composition not fully audited", "No target success or comparative advantage verified", "No binaries downloaded"],
+      "reproduction": "Read README source links and inspect root inventory; resolve HEAD."
+    },
+    {
+      "id": "JB025", "url": "https://github.com/roothide/Palera1n-roothide/releases",
+      "revision": "1.0 / a4f4365f560ec905e59df5a48be112fecf818a80", "published_at": "2026-10-25", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "medium",
+      "observation": "Recent1.0 release asserts broad iPadOS17/18 compatibility.",
+      "limitations": ["Author claim without exact target/build evidence or benchmark", "Not an AEGIS policy expansion"],
+      "reproduction": "Read release history and compare wrapper dependency composition."
+    },
+    {
+      "id": "JB026", "url": "https://github.com/libimobiledevice/libirecovery/blob/046344f7fe4413e42e71046a34230850be3f758a/src/libirecovery.c",
+      "revision": "046344f7fe4413e42e71046a34230850be3f758a", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Device table maps iPad7,11/j171ap/board0x1c and iPad7,12/j172ap/board0x1e to CPID0x8010.",
+      "limitations": ["Database mapping does not identify attached device or installed firmware"],
+      "reproduction": "Search pinned source for iPad7,11 and iPad7,12; resolve upstream HEAD."
+    },
+    {
+      "id": "JB027", "url": "https://support.apple.com/nl-nl/guide/security/secb3000f149/web",
+      "revision": "mutable Apple Platform Security boot-process page", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Apple describes BootROM/iBoot/kernel signature chain, LLB distinction for A9-and-earlier and separate SEP/baseband verification.",
+      "limitations": ["Architectural documentation, no target experiment", "English URL returned429; this locale URL served English text"],
+      "reproduction": "Read Boot process for iPad and iPhone devices."
+    },
+    {
+      "id": "JB028", "url": "https://github.com/palera1n/palera1n/issues/600",
+      "revision": "issue600, historical user report, linked duplicate598", "checked_at": "2026-11-04", "classification": "EXPERIMENTAL", "confidence": "medium",
+      "observation": "User reports iPad7 iPadOS18.4 boot missing-patch failure in older release.",
+      "limitations": ["User-reported, no independent reproduction", "Not a v2.4 failure result", "Related tracker is not independent confirmation"],
+      "reproduction": "Read issue and linked598 tracker, compare later v2.2 release fix."
+    },
+    {
+      "id": "JB029", "url": "https://alfiecg.uk/2023/07/21/A-comprehensive-write-up-of-the-checkm8-BootROM-exploit.html",
+      "revision": "author research post2023-07-21", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "medium",
+      "observation": "Implementer's original analysis links ipwndfu,gaster and prior research; distinguishes vulnerability and exploit implementation constraints.",
+      "limitations": ["Author analysis, not target-device validation", "Not used as an execution procedure"],
+      "reproduction": "Read introduction, resources and scope disclaimers."
+    },
+    {
+      "id": "JB030", "url": "https://github.com/palera1n/palera1n/pull/766",
+      "revision": "merged PR766 /3ba32c40dbd90b9bcff1a71b5f9ee26c3388b0ad", "checked_at": "2026-11-04", "classification": "DOCUMENTED", "confidence": "high",
+      "observation": "Merged iPod9,1 DFU-button guidance correction; same SoC/Home-button appearance does not justify copying button procedures.",
+      "limitations": ["Different target, methodological lesson only", "No iPad button sequence verified"],
+      "reproduction": "Read merged discussion and changed-device scope."
+    }
+  ],
+  "performed_observations": [
+    {
+      "id": "JB-REFS", "classification": "VERIFIED", "checked_at": "2026-11-04", "method": "git ls-remote",
+      "resolved": {
+        "palera1n/palera1n:refs/tags/v2.4": "3ba32c40dbd90b9bcff1a71b5f9ee26c3388b0ad",
+        "palera1n/palera1n:refs/tags/v3.0.0-beta.3": "42d6506f38a0d6c1ace38f6d033fbcf13d5ff71a",
+        "opa334/Dopamine:refs/tags/3.0.13": "5b1d2c1c3bf54dd8e3641d29c60cd3a0c13cde88",
+        "checkra1n/PongoOS:HEAD": "4c9b7541629234147fcc778f0ce4162482aaccef",
+        "palera1n/PongoOS:HEAD": "e98323f8a09abd80fc4cbcd74dee023b91a1ec22",
+        "axi0mX/ipwndfu:HEAD": "0e28932ec6a2a570b10fd77e50bda4216418cd98",
+        "0x7ff/gaster:HEAD": "7fffffff38a1bed1cdc1c5bae0df70f14395129b",
+        "alfiecg24/Achilles:HEAD": "b29fa9d2dd65b72a0502fb04a396d5df6127b4cf",
+        "palera1n/palen1x:HEAD": "51e63077a76f4d5c9dc32fe55591af139a963486",
+        "libimobiledevice/libirecovery:HEAD": "046344f7fe4413e42e71046a34230850be3f758a",
+        "pgarba/King:HEAD": "8e725e9e4677fddf130589662c2aa83420354943",
+        "roothide/Palera1n-roothide:HEAD": "a4f4365f560ec905e59df5a48be112fecf818a80"
+      },
+      "limitation": "Ref identities only; GitHub signature badges and physical functionality not independently verified."
+    },
+    {
+      "id": "JB-GASTER-DIFF", "classification": "VERIFIED", "checked_at": "2026-11-04",
+      "baseline": "0x7ff/gaster@7fffffff38a1bed1cdc1c5bae0df70f14395129b", "candidate": "palera1n/gaster@20958256a4706b6396e2d9ee9ca742618459980b",
+      "changed_files":5, "insertions":153, "deletions":53,
+      "file_numstat": [{"path":".github/workflows/makefile.yml","added":89,"removed":0},{"path":".gitignore","added":1,"removed":0},{"path":"Makefile","added":9,"removed":20},{"path":"README.md","added":3,"removed":0},{"path":"gaster.c","added":51,"removed":33}],
+      "baseline_commit_date":"2023-02-02T15:00:25+03:00", "candidate_commit_date":"2023-01-21T23:09:22-05:00",
+      "executed_upstream_code":false, "hardware_operations":0,
+      "limitations":["Static snapshot comparison, no performance benchmark","Shallow source histories","Git objects include tracked payload blobs, never loaded on hardware"]
+    }
+  ],
+  "access_gaps":["Unauthenticated GitHub API rate-limited during investigation","Some GitHub tree/comparison pages restricted","Apple English security page returnedHTTP429","No physical device or exact firmware evidence collected by this track","No exhaustive fork search or complete release dependency/license audit"]
+}

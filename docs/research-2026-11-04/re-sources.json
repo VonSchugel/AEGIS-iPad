@@ -1,0 +1,406 @@
+{
+  "checked_at": "2026-11-04",
+  "scope": "Primary source and release review; no analysis provider or physical device experiment",
+  "classification_definition": {
+    "VERIFIED": "Directly observed local software behavior or inspected source/metadata, limited to the observation",
+    "DOCUMENTED": "A primary project documents a capability; not independently executed here",
+    "EXPERIMENTAL": "Published experimental result or author measurement, not reproduced here",
+    "HYPOTHESIS": "Proposed benefit to test",
+    "UNKNOWN": "Evidence insufficient or unavailable"
+  },
+  "sources": [
+    {
+      "id": "rea-release",
+      "url": "https://github.com/morluto/rea/releases/tag/rea-agents-6.8.0",
+      "revision": "160d821ac9a0310afcb8d1fc427862dd6508add5",
+      "published_at": "2026-10-25T08:36:02Z",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Latest release observed via release API",
+        "Breaking retained function summaries and JSONL framing"
+      ],
+      "limitations": [
+        "Not installed or exercised",
+        "Release publication does not establish provider accuracy"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "rea-package",
+      "url": "https://github.com/morluto/rea/blob/160d821ac9a0310afcb8d1fc427862dd6508add5/package.json",
+      "revision": "160d821ac9a0310afcb8d1fc427862dd6508add5",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "MIT wrapper",
+        "Node range ^22.23.4 || ^24.22.1 || >=26.12.1"
+      ],
+      "limitations": [
+        "Engine prerequisites separate"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "rea-install",
+      "url": "https://github.com/morluto/rea/blob/160d821ac9a0310afcb8d1fc427862dd6508add5/docs/installation.md",
+      "revision": "160d821ac9a0310afcb8d1fc427862dd6508add5",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Ghidra 12.1.x admission",
+        "Reported Ghidra 12.1.4/JDK21 verification",
+        "Explicit provider/host prerequisites"
+      ],
+      "limitations": [
+        "Not latest Ghidra compatibility",
+        "Installation guide includes main-versus-release caveats"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "rea-windows",
+      "url": "https://github.com/morluto/rea/blob/160d821ac9a0310afcb8d1fc427862dd6508add5/docs/windows-ghidra-p0.md",
+      "revision": "160d821ac9a0310afcb8d1fc427862dd6508add5",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Experimental Windows x64 PE/static boundary",
+        "Constrained raw 6502 lane"
+      ],
+      "limitations": [
+        "No generic Windows Mach-O/ELF/firmware parity"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "rea-firmware",
+      "url": "https://github.com/morluto/rea/blob/160d821ac9a0310afcb8d1fc427862dd6508add5/docs/firmware-analysis.md",
+      "revision": "160d821ac9a0310afcb8d1fc427862dd6508add5",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Linux x64 Binwalk/Unblob scope",
+        "128 MiB input budget",
+        "Caller supplies engines"
+      ],
+      "limitations": [
+        "Signatures are not validated firmware semantics",
+        "Not exercised here"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "rea-contracts",
+      "url": "https://github.com/morluto/rea/blob/160d821ac9a0310afcb8d1fc427862dd6508add5/docs/mcp-contracts.md",
+      "revision": "160d821ac9a0310afcb8d1fc427862dd6508add5",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Retained parent Evidence and views",
+        "Session/provider ownership and cleanup contracts"
+      ],
+      "limitations": [
+        "Live schemas still required",
+        "AEGIS parser is not transport"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "rea-summary-fork",
+      "url": "https://github.com/morluto/rea/pull/5660",
+      "revision": "c6cbd2d985d09118b8bd8ee76131ff744649ea2a",
+      "merge_commit": "1a48a820208880c0cc383d196c7ed96d35479412",
+      "merged_at": "2026-10-24T00:18:54Z",
+      "classification": "EXPERIMENTAL",
+      "claims": [
+        "Retained summary feature merged",
+        "Author reports exchange-token estimate reduction for paired task"
+      ],
+      "limitations": [
+        "One pair, baseline first, shared caches",
+        "Estimated SDK tokens are not billed tokens",
+        "Not reproduced by AEGIS"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "rea-timeout-fork",
+      "url": "https://github.com/morluto/rea/pull/5662",
+      "revision": "fb6c88d518ab9b84ed396cf82dcb1c28a608c501",
+      "merge_commit": "a062529bb2aa064be37e82df39c59c4fa798fe50",
+      "classification": "EXPERIMENTAL",
+      "claims": [
+        "Per-function Ghidra timeout preserves session where documented",
+        "Linux provider author tests"
+      ],
+      "limitations": [
+        "Unset timeout unbounded",
+        "No new Windows/macOS verification",
+        "Not reproduced here"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "rea-catalog-patch",
+      "url": "https://github.com/morluto/rea/pull/5975",
+      "revision": "3ce794585d1c0e4335f6145d67a82901d6c33973",
+      "merge_commit": "aa51e4343963fdd0b97ec2ebdc3c41579fd9cb38",
+      "classification": "EXPERIMENTAL",
+      "claims": [
+        "Compact input advertisements default",
+        "Author paired SDK estimates reduced"
+      ],
+      "limitations": [
+        "No stable wall/CPU/memory gain",
+        "Actual Codex token savings unknown"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "ghidra-release",
+      "url": "https://github.com/NationalSecurityAgency/ghidra/releases/tag/Ghidra_12.2_build",
+      "revision": "8ca9077040cc43cd790babcfccf19475622a3e9a",
+      "published_at": "2026-10-22T08:31:12Z",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Latest official release observed 12.2"
+      ],
+      "limitations": [
+        "Not the REA 6.8.0 documented Ghidra series"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "ghidra-requirements",
+      "url": "https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.2_build/GhidraDocs/GettingStarted.md",
+      "revision": "Ghidra_12.2_build",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Ghidra12.2 JDK25 requirement",
+        "Headless and supported host instructions"
+      ],
+      "limitations": [
+        "No local install validation"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "pyghidra",
+      "url": "https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.2_build/Ghidra/Features/PyGhidra/src/main/py/README.md",
+      "revision": "Ghidra_12.2_build",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Official CPython integration"
+      ],
+      "limitations": [
+        "Separate version/runtime from REA bridge"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "rizin",
+      "url": "https://github.com/rizinorg/rizin/releases/tag/v0.9.1",
+      "revision": "c3a90e9226d977f58f4e9c75f78fa6b07afe13c7",
+      "published_at": "2026-06-29T17:48:24Z",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Portable CLI and rzpipe",
+        "Maintenance release observed"
+      ],
+      "limitations": [
+        "No paired accuracy/performance test"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "rizin-api",
+      "url": "https://github.com/rizinorg/rizin/blob/cd611ca3eaeaf483bb960f2ac5285842ce64e092/README.md",
+      "revision": "cd611ca3eaeaf483bb960f2ac5285842ce64e092",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "ARM64/Mach-O support and tools",
+        "radare2 fork"
+      ],
+      "limitations": [
+        "Development revision differs from release"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "radare2",
+      "url": "https://github.com/radareorg/radare2/releases/tag/6.2.4",
+      "revision": "485e5e205b190fc297a2a95a6f982ff5d9f54039",
+      "published_at": "2026-10-05T19:52:50Z",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Maintained release",
+        "ARM64 analysis fixes and caching claims"
+      ],
+      "limitations": [
+        "Author speed claims not reproduced"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "radare2-api",
+      "url": "https://github.com/radareorg/radare2/blob/fc8cb7cf9783657c6acf6e1a784b87e4f7216fe9/README.md",
+      "revision": "fc8cb7cf9783657c6acf6e1a784b87e4f7216fe9",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "r2pipe/CLI and Apple formats",
+        "LGPLv3 core with per-plugin licenses"
+      ],
+      "limitations": [
+        "Development revision differs from release"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "rz-ghidra",
+      "url": "https://github.com/rizinorg/rz-ghidra/releases/tag/v0.9.0",
+      "revision": "v0.9.0",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Rizin0.9.x compatibility",
+        "Embeds Ghidra C++ decompiler without Java app"
+      ],
+      "limitations": [
+        "No measured parity or resource advantage",
+        "Plugin LGPLv3"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "llvm-readobj",
+      "url": "https://llvm.org/docs/CommandGuide/llvm-readobj.html",
+      "revision": null,
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Object headers, sections, symbols and relocations"
+      ],
+      "limitations": [
+        "Mutable online docs",
+        "Format-specific output differences"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "llvm-objdump",
+      "url": "https://llvm.org/docs/CommandGuide/llvm-objdump.html",
+      "revision": null,
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Disassembly and object views"
+      ],
+      "limitations": [
+        "No decompilation"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "lief",
+      "url": "https://github.com/lief-project/LIEF/releases/tag/1.0.0",
+      "revision": "d05b3499b6934137e917c009a4df0a9dc8cb11c5",
+      "published_at": "2026-07-12T13:55:18Z",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "PE/ELF/Mach-O APIs",
+        "Apache2.0 regular project"
+      ],
+      "limitations": [
+        "AEGIS pin0.16.6 not migrated",
+        "No local corpus test"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "lief-extended",
+      "url": "https://lief.re/doc/stable/extended/intro.html",
+      "revision": "1.0.0 docs show d05b3499b",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Extended features separate access/package",
+        "Some internal changes lack public commit equivalent"
+      ],
+      "limitations": [
+        "Do not infer extended availability from regular package"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "capstone",
+      "url": "https://github.com/capstone-engine/capstone/releases/tag/6.0.0-Alpha11",
+      "revision": "b2bf6327b5c7dc43829130b7ccdb02ef9a65a990",
+      "published_at": "2026-09-21T17:53:59Z",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "AArch64 decoding fixes",
+        "Latest API returned Alpha11 with prerelease false"
+      ],
+      "limitations": [
+        "Name remains alpha",
+        "AEGIS pin5.0.6 retained",
+        "No loader or callgraph guarantee"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "frida",
+      "url": "https://github.com/frida/frida/releases/tag/17.25.2",
+      "revision": "29016dbd9d8fce836b2b86892b04cc31c2f767aa",
+      "published_at": "2026-11-02T22:16:34Z",
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Current release observed"
+      ],
+      "limitations": [
+        "No target server or session tested"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "frida-ios",
+      "url": "https://frida.re/docs/ios/",
+      "revision": null,
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Jailbroken and debuggable/Gadget paths have different prerequisites"
+      ],
+      "limitations": [
+        "Not boot-chain or native Linux evidence"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "kernelcache-extension",
+      "url": "https://github.com/0x36/ghidra_kernelcache",
+      "revision": null,
+      "classification": "DOCUMENTED",
+      "claims": [
+        "iOS12-15 and Ghidra10.1/10.2 historical tests",
+        "iometa C++ reconstruction"
+      ],
+      "limitations": [
+        "Unknown compatibility with target firmware/Ghidra12",
+        "Not installed"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    },
+    {
+      "id": "angr",
+      "url": "https://docs.angr.io/en/latest/",
+      "revision": null,
+      "classification": "DOCUMENTED",
+      "claims": [
+        "Composable symbolic/static analysis ecosystem"
+      ],
+      "limitations": [
+        "No Apple device/platform validation",
+        "Not needed in minimum core"
+      ],
+      "confidence": "HIGH that the cited source makes the recorded statement; target applicability and local performance remain unverified"
+    }
+  ],
+  "access_gaps": [
+    "Web fetch of some GitHub API endpoints failed; connected GitHub fetch and read-only REST requests supplied metadata instead",
+    "No exhaustive fork audit",
+    "No local provider benchmark or firmware sample",
+    "Mutable branch/docs URLs are explicitly distinguished from release pins"
+  ],
+  "recommendation": "Preserve tested pins; validate a minimal deterministic metadata adapter on known artifacts before provider upgrades or live MCP integration"
+}

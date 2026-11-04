@@ -29,7 +29,7 @@ def setup_workflow(tmp_path):
             return self.result
     adapter = Adapter()
     store = EvidenceStore()
-    agent = JailbreakAgent(store, discovery=Discovery(), adapter=adapter)
+    agent = JailbreakAgent(store, discovery=Discovery(), adapter=adapter, session_path=tmp_path / "hardware-session.lock")
     return agent, adapter, report, backup, tmp_path / "binary", store
 
 
@@ -86,5 +86,25 @@ async def test_incomplete_usb_inventory_cannot_prepare_physical_plan(tmp_path):
         with pytest.raises(WorkflowError):
             await agent.plan(backup, binary)
         assert agent.machine.state == State.DISCOVER and adapter.calls == 0
+    finally:
+        store.close()
+
+
+async def test_busy_session_prevents_rechecks_approval_and_upstream(tmp_path):
+    from aegis.safety.session import hardware_session
+    agent, adapter, report, backup, binary, store = setup_workflow(tmp_path)
+    try:
+        plan = await agent.plan(backup, binary)
+        approval = Approval.from_response(plan, f"APPROVE {plan_digest(plan)[:12]}")
+        class ForbiddenDiscovery:
+            async def discover(self):
+                pytest.fail("Busy session must block before accessing USB")
+        agent.discovery = ForbiddenDiscovery()
+        with hardware_session(agent.session_path):
+            with pytest.raises(WorkflowError) as error:
+                await agent.execute(plan, approval, binary, backup)
+        assert error.value.code == "HARDWARE_SESSION_BUSY"
+        assert adapter.calls == 0 and not approval.consumed
+        assert agent.machine.state == State.AWAIT_OPERATOR_APPROVAL
     finally:
         store.close()

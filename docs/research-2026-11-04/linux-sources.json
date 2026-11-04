@@ -1,0 +1,548 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-04",
+  "target": [
+    "iPad7,11 / J171",
+    "iPad7,12 / J172"
+  ],
+  "physical_device_results": "NOT_TESTED",
+  "measurement_scope": "Source retrieval and focused source comparison only; no cross-build, QEMU, payload or hardware test.",
+  "sources": [
+    {
+      "id": "linux-20261104-j171",
+      "source_url": "https://github.com/torvalds/linux/blob/05441d697f7f9a927264f4058cbbc6a03dfcac9d/arch/arm64/boot/dts/apple/t8010-j171.dts",
+      "retrieval_url": "https://raw.githubusercontent.com/torvalds/linux/05441d697f7f9a927264f4058cbbc6a03dfcac9d/arch/arm64/boot/dts/apple/t8010-j171.dts",
+      "repository": "torvalds/linux",
+      "revision": "05441d697f7f9a927264f4058cbbc6a03dfcac9d",
+      "path": "arch/arm64/boot/dts/apple/t8010-j171.dts",
+      "checked_at": "2026-11-04",
+      "classification": "VERIFIED",
+      "observed": "Exact Wi-Fi iPad 7 board identity and T8010 compatibility present.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "c7db6f170186d8274bc8a7a8773d497bdf3049aba2a34e0a0aabffa4fbaff44d",
+      "size_bytes": 307
+    },
+    {
+      "id": "linux-20261104-j172",
+      "source_url": "https://github.com/torvalds/linux/blob/05441d697f7f9a927264f4058cbbc6a03dfcac9d/arch/arm64/boot/dts/apple/t8010-j172.dts",
+      "retrieval_url": "https://raw.githubusercontent.com/torvalds/linux/05441d697f7f9a927264f4058cbbc6a03dfcac9d/arch/arm64/boot/dts/apple/t8010-j172.dts",
+      "repository": "torvalds/linux",
+      "revision": "05441d697f7f9a927264f4058cbbc6a03dfcac9d",
+      "path": "arch/arm64/boot/dts/apple/t8010-j172.dts",
+      "checked_at": "2026-11-04",
+      "classification": "VERIFIED",
+      "observed": "Exact cellular iPad 7 board identity and T8010 compatibility present.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "87e801145a56614c2dfa3c752a3233ffa0cf889785a57225ace5259f783f385e",
+      "size_bytes": 319
+    },
+    {
+      "id": "linux-20261104-t8010",
+      "source_url": "https://github.com/torvalds/linux/blob/05441d697f7f9a927264f4058cbbc6a03dfcac9d/arch/arm64/boot/dts/apple/t8010.dtsi",
+      "retrieval_url": "https://raw.githubusercontent.com/torvalds/linux/05441d697f7f9a927264f4058cbbc6a03dfcac9d/arch/arm64/boot/dts/apple/t8010.dtsi",
+      "repository": "torvalds/linux",
+      "revision": "05441d697f7f9a927264f4058cbbc6a03dfcac9d",
+      "path": "arch/arm64/boot/dts/apple/t8010.dtsi",
+      "checked_at": "2026-11-04",
+      "classification": "VERIFIED",
+      "observed": "AIC, ARM timer, spin-table CPUs and loader-filled release addresses; EL2 explicitly unavailable.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "ba593dd5d0bae71ab58dc21065bcb4b911a46a30752ea596937c7b9edadd6780",
+      "size_bytes": 8804
+    },
+    {
+      "id": "linux-20261104-entry",
+      "source_url": "https://github.com/torvalds/linux/blob/05441d697f7f9a927264f4058cbbc6a03dfcac9d/Documentation/arch/arm64/booting.rst",
+      "retrieval_url": "https://raw.githubusercontent.com/torvalds/linux/05441d697f7f9a927264f4058cbbc6a03dfcac9d/Documentation/arch/arm64/booting.rst",
+      "repository": "torvalds/linux",
+      "revision": "05441d697f7f9a927264f4058cbbc6a03dfcac9d",
+      "path": "Documentation/arch/arm64/booting.rst",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "Generic ARM64 register, memory and execution-state handoff requirements.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "85d189260398d5ac3d69267c509de3c5a6b007de9e91e5a4d580f5fb9b6a8cfe",
+      "size_bytes": 22783
+    },
+    {
+      "id": "linux-20261104-hoolock-features",
+      "source_url": "https://github.com/HoolockLinux/docs/blob/23ebe1fbc375599221553a7e1815e5de182a6b42/features/A10.md",
+      "retrieval_url": "https://raw.githubusercontent.com/HoolockLinux/docs/23ebe1fbc375599221553a7e1815e5de182a6b42/features/A10.md",
+      "repository": "HoolockLinux/docs",
+      "revision": "23ebe1fbc375599221553a7e1815e5de182a6b42",
+      "path": "features/A10.md",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "Maintainer matrix separates upstream/downstream and unfinished A10 subsystems.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "5b2f24d4cb9f5e362a7d6a2700a2d48d57ed073d5e8dc2b73f577c315d7ecf53",
+      "size_bytes": 5838
+    },
+    {
+      "id": "linux-20261104-hoolock-build",
+      "source_url": "https://github.com/HoolockLinux/docs/blob/23ebe1fbc375599221553a7e1815e5de182a6b42/tutorials/SETUP.md",
+      "retrieval_url": "https://raw.githubusercontent.com/HoolockLinux/docs/23ebe1fbc375599221553a7e1815e5de182a6b42/tutorials/SETUP.md",
+      "repository": "HoolockLinux/docs",
+      "revision": "23ebe1fbc375599221553a7e1815e5de182a6b42",
+      "path": "tutorials/SETUP.md",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "Linux-host kernel builds, idevice loader, 16K A9-A11 example and initramfs interfaces.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "a76f5b77cec49b4a20639e637608edfdd755f04fd8153863bfc479c9dfd44b68",
+      "size_bytes": 3830
+    },
+    {
+      "id": "linux-20261104-hoolock-pongo",
+      "source_url": "https://github.com/HoolockLinux/docs/blob/23ebe1fbc375599221553a7e1815e5de182a6b42/tutorials/SETUP_pongoOS.md",
+      "retrieval_url": "https://raw.githubusercontent.com/HoolockLinux/docs/23ebe1fbc375599221553a7e1815e5de182a6b42/tutorials/SETUP_pongoOS.md",
+      "repository": "HoolockLinux/docs",
+      "revision": "23ebe1fbc375599221553a7e1815e5de182a6b42",
+      "path": "tutorials/SETUP_pongoOS.md",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "PongoOS/m1n1 handoff guide; examples require review, not direct execution.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "541784e4f2de297762f9d58210762a4be40779525adfc305665b491326586c2a",
+      "size_bytes": 4560
+    },
+    {
+      "id": "linux-20261104-hoolock-readme",
+      "source_url": "https://github.com/HoolockLinux/docs/blob/23ebe1fbc375599221553a7e1815e5de182a6b42/README.md",
+      "retrieval_url": "https://raw.githubusercontent.com/HoolockLinux/docs/23ebe1fbc375599221553a7e1815e5de182a6b42/README.md",
+      "repository": "HoolockLinux/docs",
+      "revision": "23ebe1fbc375599221553a7e1815e5de182a6b42",
+      "path": "README.md",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "Claims firmware 9.0-18.0 and recommends PongoOS; not exact-board firmware testing.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "a2bb723c4bcd1c366488209099a13a6cc99d2b9e05edda70c3925dacc42afbb6",
+      "size_bytes": 1481
+    },
+    {
+      "id": "linux-20261104-pauli-status",
+      "source_url": "https://github.com/Pauli1Go/HoolockLinux/blob/7b3e4e8b0156e190d9175c6fcf396ae384419f14/README.md",
+      "retrieval_url": "https://raw.githubusercontent.com/Pauli1Go/HoolockLinux/7b3e4e8b0156e190d9175c6fcf396ae384419f14/README.md",
+      "repository": "Pauli1Go/HoolockLinux",
+      "revision": "7b3e4e8b0156e190d9175c6fcf396ae384419f14",
+      "path": "README.md",
+      "checked_at": "2026-11-04",
+      "classification": "EXPERIMENTAL",
+      "observed": "Author reports J172 desktop and peripherals; incomplete GPU, speakers and Bluetooth RF calibration.",
+      "confidence": "medium",
+      "limitations": [
+        "Author-reported exact-J172 runtime; independent replication absent; no J171 validation; no performance comparison."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "ed0ddaa59c0359973a3be8e62c436b8d22129f2ff623382ca4d278cb036648b6",
+      "size_bytes": 12794
+    },
+    {
+      "id": "linux-20261104-pauli-dt",
+      "source_url": "https://github.com/Pauli1Go/HoolockLinux/blob/7b3e4e8b0156e190d9175c6fcf396ae384419f14/arch/arm64/boot/dts/apple/t8010-ipad7.dtsi",
+      "retrieval_url": "https://raw.githubusercontent.com/Pauli1Go/HoolockLinux/7b3e4e8b0156e190d9175c6fcf396ae384419f14/arch/arm64/boot/dts/apple/t8010-ipad7.dtsi",
+      "repository": "Pauli1Go/HoolockLinux",
+      "revision": "7b3e4e8b0156e190d9175c6fcf396ae384419f14",
+      "path": "arch/arm64/boot/dts/apple/t8010-ipad7.dtsi",
+      "checked_at": "2026-11-04",
+      "classification": "VERIFIED",
+      "observed": "Common iPad7 include contains J172-specific touch, PCIe, Bluetooth and power nodes.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "0d05f17f3d88833f24626e8d3beff36b844bb64bdc7ef6fec046610942ee4cec",
+      "size_bytes": 5655
+    },
+    {
+      "id": "linux-20261104-pauli-touch-source",
+      "source_url": "https://github.com/Pauli1Go/HoolockLinux/blob/7b3e4e8b0156e190d9175c6fcf396ae384419f14/drivers/input/touchscreen/apple_z2.c",
+      "retrieval_url": "https://raw.githubusercontent.com/Pauli1Go/HoolockLinux/7b3e4e8b0156e190d9175c6fcf396ae384419f14/drivers/input/touchscreen/apple_z2.c",
+      "repository": "Pauli1Go/HoolockLinux",
+      "revision": "7b3e4e8b0156e190d9175c6fcf396ae384419f14",
+      "path": "drivers/input/touchscreen/apple_z2.c",
+      "checked_at": "2026-11-04",
+      "classification": "VERIFIED",
+      "observed": "J172 match and parsing present; 2451 newline-delimited lines at checked revision.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "8d7618a7e099833a2ef3ef88eb999b86b058fd6ef22e3c82a4b789fa578f5019",
+      "size_bytes": 66253
+    },
+    {
+      "id": "linux-20261104-hoolock-touch-source",
+      "source_url": "https://github.com/HoolockLinux/linux/blob/6831bc701a6ce059e71e5aaa9488c9195bea6927/drivers/input/touchscreen/apple_z2.c",
+      "retrieval_url": "https://raw.githubusercontent.com/HoolockLinux/linux/6831bc701a6ce059e71e5aaa9488c9195bea6927/drivers/input/touchscreen/apple_z2.c",
+      "repository": "HoolockLinux/linux",
+      "revision": "6831bc701a6ce059e71e5aaa9488c9195bea6927",
+      "path": "drivers/input/touchscreen/apple_z2.c",
+      "checked_at": "2026-11-04",
+      "classification": "VERIFIED",
+      "observed": "482 newline-delimited lines; surveyed source lacks J172 match.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "de82c35ccbc760b0ad59376902a3fbcd06bf4843cb917d6f5b7ba874376ca347",
+      "size_bytes": 13103
+    },
+    {
+      "id": "linux-20261104-pauli-loader",
+      "source_url": "https://github.com/Pauli1Go/m1n1/blob/0ac395710d7b2ac842c734400521288c93677ebe/src/kboot.c",
+      "retrieval_url": "https://raw.githubusercontent.com/Pauli1Go/m1n1/0ac395710d7b2ac842c734400521288c93677ebe/src/kboot.c",
+      "repository": "Pauli1Go/m1n1",
+      "revision": "0ac395710d7b2ac842c734400521288c93677ebe",
+      "path": "src/kboot.c",
+      "checked_at": "2026-11-04",
+      "classification": "VERIFIED",
+      "observed": "NVMe HMB and private SysCfg setup functions and call sites observed.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "5b3e7d69596115b6fd10f304e824c83f9c185edc202f45451e4bca10e385fbc6",
+      "size_bytes": 105959
+    },
+    {
+      "id": "linux-20261104-hoolock-loader",
+      "source_url": "https://github.com/HoolockLinux/m1n1/blob/d5a10ac52a6468484854419a6c5130f1d62073eb/src/kboot.c",
+      "retrieval_url": "https://raw.githubusercontent.com/HoolockLinux/m1n1/d5a10ac52a6468484854419a6c5130f1d62073eb/src/kboot.c",
+      "repository": "HoolockLinux/m1n1",
+      "revision": "d5a10ac52a6468484854419a6c5130f1d62073eb",
+      "path": "src/kboot.c",
+      "checked_at": "2026-11-04",
+      "classification": "VERIFIED",
+      "observed": "Baseline does not contain surveyed derivative HMB/SysCfg setup.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "abd9228f171bbfce65a95a60203839ea58cd90e110ce0ebc3fbcf643e764edd0",
+      "size_bytes": 98688
+    },
+    {
+      "id": "linux-20261104-firmware-guide",
+      "source_url": "https://github.com/Pauli1Go/HoolockLinux-linux-firmware/blob/944541e67b4c603df328c77d30093551de802c17/ipad7.md",
+      "retrieval_url": "https://raw.githubusercontent.com/Pauli1Go/HoolockLinux-linux-firmware/944541e67b4c603df328c77d30093551de802c17/ipad7.md",
+      "repository": "Pauli1Go/HoolockLinux-linux-firmware",
+      "revision": "944541e67b4c603df328c77d30093551de802c17",
+      "path": "ipad7.md",
+      "checked_at": "2026-11-04",
+      "classification": "EXPERIMENTAL",
+      "observed": "J172 firmware/calibration reproduction guide pins author-tested extraction input 18.7.9/22H355.",
+      "confidence": "medium",
+      "limitations": [
+        "Not a boot compatibility range; files not downloaded; offsets/hashes not independently tested; license permission for reuse unresolved."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "9c2b7e520d1e0024397408a5d744565a305557161c2a6d06bbc563de3f6114d6",
+      "size_bytes": 17639
+    },
+    {
+      "id": "linux-20261104-touch-report",
+      "source_url": "https://github.com/Pauli1Go/HoolockLinux-bringup-docs/blob/c9d02dbcbb37d73cffb0ce048b03308c6416d8db/docs/touch.md",
+      "retrieval_url": "https://raw.githubusercontent.com/Pauli1Go/HoolockLinux-bringup-docs/c9d02dbcbb37d73cffb0ce048b03308c6416d8db/docs/touch.md",
+      "repository": "Pauli1Go/HoolockLinux-bringup-docs",
+      "revision": "c9d02dbcbb37d73cffb0ce048b03308c6416d8db",
+      "path": "docs/touch.md",
+      "checked_at": "2026-11-04",
+      "classification": "EXPERIMENTAL",
+      "observed": "Exact-J172 author report links firmware, touch and loader dependencies.",
+      "confidence": "medium",
+      "limitations": [
+        "Same author/ecosystem as derivative kernel; not independent corroboration of runtime."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "720aaf30e881fa10a8e7da96ac903a30ad48371773947ee5a4be6dc0827a6902",
+      "size_bytes": 13942
+    },
+    {
+      "id": "linux-20261104-ramdisk",
+      "source_url": "https://github.com/HoolockLinux/HoolockRD/blob/2dce746e1165ad81b23e354773c19795dbd6b328/README.md",
+      "retrieval_url": "https://raw.githubusercontent.com/HoolockLinux/HoolockRD/2dce746e1165ad81b23e354773c19795dbd6b328/README.md",
+      "repository": "HoolockLinux/HoolockRD",
+      "revision": "2dce746e1165ad81b23e354773c19795dbd6b328",
+      "path": "README.md",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "Test/shell ramdisk, failure shell and terminal reboot behavior; postmarketOS ancestry.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "be9602d731b3d30ac6a958a65d600df246eda4e4473aab3801c731a63120a201",
+      "size_bytes": 526
+    },
+    {
+      "id": "linux-20261104-remoteboot",
+      "source_url": "https://github.com/HoolockLinux/remote_boot/blob/e254a58b7d7c68c9e34a407a0beb0aab4861a6b6/README.md",
+      "retrieval_url": "https://raw.githubusercontent.com/HoolockLinux/remote_boot/e254a58b7d7c68c9e34a407a0beb0aab4861a6b6/README.md",
+      "repository": "HoolockLinux/remote_boot",
+      "revision": "e254a58b7d7c68c9e34a407a0beb0aab4861a6b6",
+      "path": "README.md",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "Per-model iBoot preparation and firmware tooling; requires ipsw >=3.1.719 for LZSS correctness.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "86c296f0e2ed868165d3de8a147371a7a9482ccfc778069be595f48e9a72d574",
+      "size_bytes": 1268
+    },
+    {
+      "id": "linux-20261104-pomme",
+      "source_url": "https://github.com/xenoaitham/pomme/blob/8a7780b8824dcad7a21730251782b5a5a4acf6e6/README.md",
+      "retrieval_url": "https://raw.githubusercontent.com/xenoaitham/pomme/8a7780b8824dcad7a21730251782b5a5a4acf6e6/README.md",
+      "repository": "xenoaitham/pomme",
+      "revision": "8a7780b8824dcad7a21730251782b5a5a4acf6e6",
+      "path": "README.md",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "Pinned build/evidence pipeline explicitly disclaims hardware boot verification.",
+      "confidence": "high",
+      "limitations": [
+        "Build/reproducibility claims not rerun; first target iPhone 7; no exact-iPad boot or reliability proof."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "2e0e11fb376b9f0ff3f2bf57b1537dd85f2e1aa86ba0de4a17de011c2d69d7eb",
+      "size_bytes": 9659
+    },
+    {
+      "id": "linux-20261104-hoolock-license",
+      "source_url": "https://github.com/HoolockLinux/docs/blob/23ebe1fbc375599221553a7e1815e5de182a6b42/LICENSE",
+      "retrieval_url": "https://raw.githubusercontent.com/HoolockLinux/docs/23ebe1fbc375599221553a7e1815e5de182a6b42/LICENSE",
+      "repository": "HoolockLinux/docs",
+      "revision": "23ebe1fbc375599221553a7e1815e5de182a6b42",
+      "path": "LICENSE",
+      "checked_at": "2026-11-04",
+      "classification": "VERIFIED",
+      "observed": "MIT except separately licensed binaries/Pongo.bin.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "bbc88a5c95b2cf1bf1842b237f275cb47ca35d099a052689403f927b0d9da8ce",
+      "size_bytes": 1142
+    },
+    {
+      "id": "linux-20261104-m1n1-license",
+      "source_url": "https://github.com/HoolockLinux/m1n1/blob/d5a10ac52a6468484854419a6c5130f1d62073eb/LICENSE",
+      "retrieval_url": "https://raw.githubusercontent.com/HoolockLinux/m1n1/d5a10ac52a6468484854419a6c5130f1d62073eb/LICENSE",
+      "repository": "HoolockLinux/m1n1",
+      "revision": "d5a10ac52a6468484854419a6c5130f1d62073eb",
+      "path": "LICENSE",
+      "checked_at": "2026-11-04",
+      "classification": "VERIFIED",
+      "observed": "Pinned idevice fork MIT license text observed.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "11ca423a564b52d3b7f260398baa20d016c25ae180fbdd0067c27b7d1ed7b420",
+      "size_bytes": 1076
+    },
+    {
+      "id": "linux-20261104-kernel-license",
+      "source_url": "https://github.com/Pauli1Go/HoolockLinux/blob/7b3e4e8b0156e190d9175c6fcf396ae384419f14/COPYING",
+      "retrieval_url": "https://raw.githubusercontent.com/Pauli1Go/HoolockLinux/7b3e4e8b0156e190d9175c6fcf396ae384419f14/COPYING",
+      "repository": "Pauli1Go/HoolockLinux",
+      "revision": "7b3e4e8b0156e190d9175c6fcf396ae384419f14",
+      "path": "COPYING",
+      "checked_at": "2026-11-04",
+      "classification": "VERIFIED",
+      "observed": "Kernel GPL-2.0 with syscall note; individual files may carry other licenses.",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "method": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "retrieval_status": "FETCHED",
+      "sha256_bytes": "fb5a425bd3b3cd6071a3a9aff9909a859e7c1158d54d32e07658398cd67eb6a0",
+      "size_bytes": 496
+    },
+    {
+      "id": "linux-20261104-sandcastle",
+      "source_url": "https://projectsandcastle.org/status",
+      "revision": "mutable page",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "Historical build list does not establish an iPad7 port.",
+      "confidence": "medium",
+      "limitations": [
+        "Mutable or inaccessible source; no independent target-device result."
+      ],
+      "retrieval_status": "FETCHED_WEB",
+      "method": "web tool source inspection"
+    },
+    {
+      "id": "linux-20261104-qemu",
+      "source_url": "https://www.qemu.org/docs/master/system/arm/virt.html",
+      "revision": "master documentation, mutable",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "virt is generic virtual hardware, not A10 emulation.",
+      "confidence": "medium",
+      "limitations": [
+        "Mutable or inaccessible source; no independent target-device result."
+      ],
+      "retrieval_status": "FETCHED_WEB",
+      "method": "web tool source inspection"
+    },
+    {
+      "id": "linux-20261104-buildroot-download",
+      "source_url": "https://buildroot.org/download.html",
+      "revision": "2026.08.1 / 2025.02.19 published listing",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "Current stable and LTS candidates; no image built here.",
+      "confidence": "medium",
+      "limitations": [
+        "Mutable or inaccessible source; no independent target-device result."
+      ],
+      "retrieval_status": "FETCHED_WEB",
+      "method": "web tool source inspection"
+    },
+    {
+      "id": "linux-20261104-buildroot-manual",
+      "source_url": "https://buildroot.org/downloads/manual/manual.html",
+      "revision": "2026.08 manual, d5180309b1",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "Linux host, independent rootfs/toolchain output and customization guidance.",
+      "confidence": "medium",
+      "limitations": [
+        "Mutable or inaccessible source; no independent target-device result."
+      ],
+      "retrieval_status": "FETCHED_WEB",
+      "method": "web tool source inspection"
+    },
+    {
+      "id": "linux-20261104-alpine",
+      "source_url": "https://wiki.alpinelinux.org/wiki/How_to_make_a_cross_architecture_chroot",
+      "revision": "oldid=32012 in retrieved page",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "User-mode cross-architecture packaging uses the host kernel.",
+      "confidence": "medium",
+      "limitations": [
+        "Mutable or inaccessible source; no independent target-device result."
+      ],
+      "retrieval_status": "FETCHED_WEB",
+      "method": "web tool source inspection"
+    },
+    {
+      "id": "linux-20261104-asahi-guide",
+      "source_url": "https://asahilinux.org/docs/sw/m1n1-user-guide/",
+      "revision": "mutable documentation",
+      "checked_at": "2026-11-04",
+      "classification": "DOCUMENTED",
+      "observed": "Transferable m1n1 build workflow; Mac-specific assumptions need exclusion.",
+      "confidence": "medium",
+      "limitations": [
+        "Mutable or inaccessible source; no independent target-device result."
+      ],
+      "retrieval_status": "FETCHED_WEB",
+      "method": "web tool source inspection"
+    },
+    {
+      "id": "linux-20261104-pmos-gap",
+      "source_url": "https://wiki.postmarketos.org/wiki/Apple_iPad_7_(apple-ipad7)",
+      "revision": "not resolved",
+      "checked_at": "2026-11-04",
+      "classification": "UNKNOWN",
+      "observed": "Direct exact-device page unavailable; no current pmaports compatibility verified.",
+      "confidence": "unknown",
+      "limitations": [
+        "Mutable or inaccessible source; no independent target-device result."
+      ],
+      "retrieval_status": "INACCESSIBLE",
+      "method": "web tool source inspection"
+    },
+    {
+      "id": "linux-20261104-apple-gap",
+      "source_url": "https://support.apple.com/guide/security/boot-process-for-iphone-and-ipad-devices-secb3000f149/web",
+      "revision": "prior citation not refreshed",
+      "checked_at": "2026-11-04",
+      "classification": "UNKNOWN",
+      "observed": "HTTP 429 blocked refresh; retain prior A10 boot-chain finding with date.",
+      "confidence": "unknown",
+      "limitations": [
+        "Mutable or inaccessible source; no independent target-device result."
+      ],
+      "retrieval_status": "INACCESSIBLE",
+      "method": "web tool source inspection"
+    }
+  ],
+  "access_gaps": [
+    "Shared unauthenticated GitHub API reached HTTP 403 rate limit after repository metadata was resolved.",
+    "Direct postmarketOS device pages failed or redirected to an inaccessible domain.",
+    "Apple Platform Security returned HTTP 429.",
+    "No full fork merge-base audit, exact reproducible kernel/firmware test manifest, independent runtime logs or fair hardware performance comparison."
+  ]
+}

@@ -4,14 +4,15 @@ import hashlib
 
 from aegis.adapters.palera1n import Palera1nAdapter
 from aegis.evidence import EvidenceStore
-from aegis.models import State, WorkflowError
+from aegis.models import GateReceipt, State, WorkflowError
 from aegis.orchestration import StateMachine
 from aegis.safety.approval import Approval, plan_digest
 from aegis.safety.backup import verify_backup
+from aegis.safety.session import hardware_session
 
 
 class JailbreakAgent:
-    def __init__(self, store: EvidenceStore, discovery=None, compatibility=None, adapter=None):
+    def __init__(self, store: EvidenceStore, discovery=None, compatibility=None, adapter=None, *, session_path: Path | None = None):
         from aegis.agents.discovery import DiscoveryAgent
         from aegis.agents.compatibility import CompatibilityAgent
         self.store = store
@@ -19,9 +20,11 @@ class JailbreakAgent:
         self.compatibility = compatibility or CompatibilityAgent()
         self.adapter = adapter or Palera1nAdapter()
         self.machine = StateMachine(store)
+        self.session_path = session_path
 
     def transition(self, target: State, observation: dict, passed: bool = True):
-        record = self.store.add("precondition", observation)
+        receipt = GateReceipt(target=target, passed=passed, simulated=False, observation=observation)
+        record = self.store.add("gate_receipt", receipt.model_dump(mode="json"))
         self.machine.advance(target, [record], satisfied=passed)
 
     @staticmethod
@@ -33,6 +36,10 @@ class JailbreakAgent:
                 and observations[0].get("vendor_id") == "0x05ac")
 
     async def plan(self, backup: Path | None = None, binary: Path | None = None) -> dict:
+        with hardware_session(self.session_path):
+            return await self._plan(backup, binary)
+
+    async def _plan(self, backup: Path | None, binary: Path | None) -> dict:
         discovery = await self.discovery.discover()
         devices = discovery.get("devices", [])
         self.transition(State.IDENTIFY_DEVICE, {"device_count": len(devices), "selection": discovery.get("selection")},
@@ -61,6 +68,10 @@ class JailbreakAgent:
         return plan
 
     async def execute(self, plan: dict, approval: Approval, binary: Path, backup: Path, validation=None, operator_completion=None) -> dict:
+        with hardware_session(self.session_path):
+            return await self._execute(plan, approval, binary, backup, validation, operator_completion)
+
+    async def _execute(self, plan: dict, approval: Approval, binary: Path, backup: Path, validation=None, operator_completion=None) -> dict:
         if self.machine.state != State.AWAIT_OPERATOR_APPROVAL or plan.get("simulated"):
             raise WorkflowError("UNPREPARED_PLAN", "Execution requires a live prepared plan in this process")
         fresh = await self.discovery.discover()

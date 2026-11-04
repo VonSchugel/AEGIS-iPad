@@ -1,5 +1,26 @@
 # Changes
 
+## Unreleased — research review 2026-11-04
+
+- Add a portable agentic memorandum and repository AGENTS.md covering the
+  recommended native Debian host, proposed resource budgets, setup checks,
+  prioritized work and explicit hardware authorization boundaries.
+
+- Require typed, current-run, gate-specific receipts with matching simulation
+  mode; generic evidence and generated advice cannot advance a workflow.
+- Coordinate hardware CLI commands and plan/execute workflows with a per-user
+  nonblocking OS lock, tested with independent ordinary Python processes.
+- Add bounded `search-evidence` over canonical SQLite records using FTS5,
+  preserving source provenance and excluding generated advice.
+- Serialize typed evidence using DOCUMENTED while accepting historical
+  SUPPORTED BY DOCUMENTATION input from existing snapshots and databases.
+- Refresh Dopamine research separately from the pinned physical adapter;
+  add exact-board Linux research and independent L0–L5 acceptance contracts.
+- Add an architecture audit, current source ledgers, integration decisions,
+  engineering roadmap and reproducible hardware-free benchmark harness.
+
+These changes do not establish physical jailbreak or native Linux success.
+
 ## 0.2.0 — 2026-10-25
 
 - Add optional `llm-status` and `summarize-evidence` commands for a local Ollama

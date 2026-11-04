@@ -6,7 +6,7 @@ from pathlib import Path
 from pydantic import BaseModel, ConfigDict
 
 from aegis.evidence import EvidenceStore
-from aegis.models import State
+from aegis.models import GateReceipt, State
 from aegis.orchestration.machine import StateMachine, ORDER
 
 
@@ -37,6 +37,8 @@ def load_fixture(path: Path | None = None) -> dict:
 def simulate(store: EvidenceStore, scenario: str = "success") -> dict:
     from aegis.agents.compatibility import CompatibilityAgent
     machine = StateMachine(store, simulated=True)
+    def receipt(target: State, observation: dict) -> int:
+        return store.add("gate_receipt", GateReceipt(target=target, passed=True, simulated=True, observation=observation).model_dump(mode="json"))
     fixture = load_fixture()
     device = fixture["devices"][0]
     if scenario == "unsupported":
@@ -49,14 +51,14 @@ def simulate(store: EvidenceStore, scenario: str = "success") -> dict:
         observation = {"simulated": True, "classification": "EXPERIMENTAL", "fixture": scenario, "precondition_for": target}
         if target == State.EXECUTE_SUPPORTED_JAILBREAK:
             observation["approval"] = "SIMULATED ONLY; not an Approval instance"
-        record = store.add("simulated_precondition", observation)
+        record = receipt(target, observation)
         machine.advance(target, [record], satisfied=True)
         if target == State.EXECUTE_SUPPORTED_JAILBREAK and scenario in {"timeout", "disconnect"}:
-            fail = store.add("simulated_failure", {"simulated": True, "kind": scenario, "automatic_retries": 0})
+            fail = receipt(State.RECOVERY_GUIDANCE, {"simulated": True, "kind": scenario, "automatic_retries": 0})
             machine.advance(State.RECOVERY_GUIDANCE, [fail], satisfied=True)
             break
         if target == State.VALIDATE and scenario == "partial":
-            fail = store.add("simulated_failure", {"simulated": True, "bootstrap": "UNKNOWN", "exit_code_alone_insufficient": True})
+            fail = receipt(State.RECOVERY_GUIDANCE, {"simulated": True, "bootstrap": "UNKNOWN", "exit_code_alone_insufficient": True})
             machine.advance(State.RECOVERY_GUIDANCE, [fail], satisfied=True)
             break
     return {"simulated": True, "state": machine.state, "status": "SIMULATED", "device_modified": False,

@@ -52,3 +52,14 @@ def test_research_snapshots_available_in_application(tmp_path):
     output = json.loads(result.output)
     assert output["snapshots"]["compatibility"]
     assert output["rea"]["native_provider_verified"] is False
+
+
+def test_source_retrieval_is_available_without_model_or_hardware(tmp_path):
+    runner = CliRunner()
+    assert invoke(runner, tmp_path, "research").exit_code == 0
+    result = invoke(runner, tmp_path, "search-evidence", "PongoOS", "--limit", "3")
+    assert result.exit_code == 0, result.output
+    payload = json.loads(result.output)
+    assert 0 < len(payload["results"]) <= 3
+    assert payload["execution_authority"].startswith("NONE")
+    assert all(item["source_url"] and item["revision"] for item in payload["results"])

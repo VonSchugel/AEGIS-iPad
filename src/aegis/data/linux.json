@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "assessed_at": "2026-10-20",
+  "assessed_at": "2026-11-04",
   "classification": "SUPPORTED BY DOCUMENTATION",
   "target": {
     "requested_models": [
@@ -402,6 +402,171 @@
       "reproduction": "Inspect dt_set_nvme_hmb and its call site at the cited pinned revision.",
       "next_step": "Review the exact report-era build and matching kernel/DT before a separate RAM-only trial.",
       "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "linux-20261104-j171",
+      "question": "What does the 2026-11-04 exact-board Linux source review establish?",
+      "source_url": "https://github.com/torvalds/linux/blob/05441d697f7f9a927264f4058cbbc6a03dfcac9d/arch/arm64/boot/dts/apple/t8010-j171.dts",
+      "revision": "05441d697f7f9a927264f4058cbbc6a03dfcac9d",
+      "observed": "Exact Wi-Fi iPad 7 board identity and T8010 compatibility present.",
+      "classification": "VERIFIED",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "reproduction": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "next_step": "Review the linked research report and pin a complete build before any separately approved hardware experiment.",
+      "retrieved_at": "2026-11-04"
+    },
+    {
+      "id": "linux-20261104-j172",
+      "question": "What does the 2026-11-04 exact-board Linux source review establish?",
+      "source_url": "https://github.com/torvalds/linux/blob/05441d697f7f9a927264f4058cbbc6a03dfcac9d/arch/arm64/boot/dts/apple/t8010-j172.dts",
+      "revision": "05441d697f7f9a927264f4058cbbc6a03dfcac9d",
+      "observed": "Exact cellular iPad 7 board identity and T8010 compatibility present.",
+      "classification": "VERIFIED",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "reproduction": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "next_step": "Review the linked research report and pin a complete build before any separately approved hardware experiment.",
+      "retrieved_at": "2026-11-04"
+    },
+    {
+      "id": "linux-20261104-t8010",
+      "question": "What does the 2026-11-04 exact-board Linux source review establish?",
+      "source_url": "https://github.com/torvalds/linux/blob/05441d697f7f9a927264f4058cbbc6a03dfcac9d/arch/arm64/boot/dts/apple/t8010.dtsi",
+      "revision": "05441d697f7f9a927264f4058cbbc6a03dfcac9d",
+      "observed": "AIC, ARM timer, spin-table CPUs and loader-filled release addresses; EL2 explicitly unavailable.",
+      "classification": "VERIFIED",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "reproduction": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "next_step": "Review the linked research report and pin a complete build before any separately approved hardware experiment.",
+      "retrieved_at": "2026-11-04"
+    },
+    {
+      "id": "linux-20261104-entry",
+      "question": "What does the 2026-11-04 exact-board Linux source review establish?",
+      "source_url": "https://github.com/torvalds/linux/blob/05441d697f7f9a927264f4058cbbc6a03dfcac9d/Documentation/arch/arm64/booting.rst",
+      "revision": "05441d697f7f9a927264f4058cbbc6a03dfcac9d",
+      "observed": "Generic ARM64 register, memory and execution-state handoff requirements.",
+      "classification": "DOCUMENTED",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "reproduction": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "next_step": "Review the linked research report and pin a complete build before any separately approved hardware experiment.",
+      "retrieved_at": "2026-11-04"
+    },
+    {
+      "id": "linux-20261104-pauli-status",
+      "question": "What does the 2026-11-04 exact-board Linux source review establish?",
+      "source_url": "https://github.com/Pauli1Go/HoolockLinux/blob/7b3e4e8b0156e190d9175c6fcf396ae384419f14/README.md",
+      "revision": "7b3e4e8b0156e190d9175c6fcf396ae384419f14",
+      "observed": "Author reports J172 desktop and peripherals; incomplete GPU, speakers and Bluetooth RF calibration.",
+      "classification": "EXPERIMENTAL",
+      "confidence": "medium",
+      "limitations": [
+        "Author-reported exact-J172 runtime; independent replication absent; no J171 validation; no performance comparison."
+      ],
+      "reproduction": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "next_step": "Review the linked research report and pin a complete build before any separately approved hardware experiment.",
+      "retrieved_at": "2026-11-04"
+    },
+    {
+      "id": "linux-20261104-pauli-dt",
+      "question": "What does the 2026-11-04 exact-board Linux source review establish?",
+      "source_url": "https://github.com/Pauli1Go/HoolockLinux/blob/7b3e4e8b0156e190d9175c6fcf396ae384419f14/arch/arm64/boot/dts/apple/t8010-ipad7.dtsi",
+      "revision": "7b3e4e8b0156e190d9175c6fcf396ae384419f14",
+      "observed": "Common iPad7 include contains J172-specific touch, PCIe, Bluetooth and power nodes.",
+      "classification": "VERIFIED",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "reproduction": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "next_step": "Review the linked research report and pin a complete build before any separately approved hardware experiment.",
+      "retrieved_at": "2026-11-04"
+    },
+    {
+      "id": "linux-20261104-pauli-touch-source",
+      "question": "What does the 2026-11-04 exact-board Linux source review establish?",
+      "source_url": "https://github.com/Pauli1Go/HoolockLinux/blob/7b3e4e8b0156e190d9175c6fcf396ae384419f14/drivers/input/touchscreen/apple_z2.c",
+      "revision": "7b3e4e8b0156e190d9175c6fcf396ae384419f14",
+      "observed": "J172 match and parsing present; 2451 newline-delimited lines at checked revision.",
+      "classification": "VERIFIED",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "reproduction": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "next_step": "Review the linked research report and pin a complete build before any separately approved hardware experiment.",
+      "retrieved_at": "2026-11-04"
+    },
+    {
+      "id": "linux-20261104-pauli-loader",
+      "question": "What does the 2026-11-04 exact-board Linux source review establish?",
+      "source_url": "https://github.com/Pauli1Go/m1n1/blob/0ac395710d7b2ac842c734400521288c93677ebe/src/kboot.c",
+      "revision": "0ac395710d7b2ac842c734400521288c93677ebe",
+      "observed": "NVMe HMB and private SysCfg setup functions and call sites observed.",
+      "classification": "VERIFIED",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "reproduction": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "next_step": "Review the linked research report and pin a complete build before any separately approved hardware experiment.",
+      "retrieved_at": "2026-11-04"
+    },
+    {
+      "id": "linux-20261104-firmware-guide",
+      "question": "What does the 2026-11-04 exact-board Linux source review establish?",
+      "source_url": "https://github.com/Pauli1Go/HoolockLinux-linux-firmware/blob/944541e67b4c603df328c77d30093551de802c17/ipad7.md",
+      "revision": "944541e67b4c603df328c77d30093551de802c17",
+      "observed": "J172 firmware/calibration reproduction guide pins author-tested extraction input 18.7.9/22H355.",
+      "classification": "EXPERIMENTAL",
+      "confidence": "medium",
+      "limitations": [
+        "Not a boot compatibility range; files not downloaded; offsets/hashes not independently tested; license permission for reuse unresolved."
+      ],
+      "reproduction": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "next_step": "Review the linked research report and pin a complete build before any separately approved hardware experiment.",
+      "retrieved_at": "2026-11-04"
+    },
+    {
+      "id": "linux-20261104-ramdisk",
+      "question": "What does the 2026-11-04 exact-board Linux source review establish?",
+      "source_url": "https://github.com/HoolockLinux/HoolockRD/blob/2dce746e1165ad81b23e354773c19795dbd6b328/README.md",
+      "revision": "2dce746e1165ad81b23e354773c19795dbd6b328",
+      "observed": "Test/shell ramdisk, failure shell and terminal reboot behavior; postmarketOS ancestry.",
+      "classification": "DOCUMENTED",
+      "confidence": "high",
+      "limitations": [
+        "Source inspection only; no build or hardware runtime verification."
+      ],
+      "reproduction": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "next_step": "Review the linked research report and pin a complete build before any separately approved hardware experiment.",
+      "retrieved_at": "2026-11-04"
+    },
+    {
+      "id": "linux-20261104-pomme",
+      "question": "What does the 2026-11-04 exact-board Linux source review establish?",
+      "source_url": "https://github.com/xenoaitham/pomme/blob/8a7780b8824dcad7a21730251782b5a5a4acf6e6/README.md",
+      "revision": "8a7780b8824dcad7a21730251782b5a5a4acf6e6",
+      "observed": "Pinned build/evidence pipeline explicitly disclaims hardware boot verification.",
+      "classification": "DOCUMENTED",
+      "confidence": "high",
+      "limitations": [
+        "Build/reproducibility claims not rerun; first target iPhone 7; no exact-iPad boot or reliability proof."
+      ],
+      "reproduction": "Pinned raw source; SHA-256 of retrieved bytes; never executed.",
+      "next_step": "Review the linked research report and pin a complete build before any separately approved hardware experiment.",
+      "retrieved_at": "2026-11-04"
     }
   ],
   "roadmap": [
@@ -508,6 +673,112 @@
       "confirmed_pinned_files": [
         "README.md"
       ]
+    }
+  ],
+  "legacy_assessed_at": "2026-10-20",
+  "research_update": {
+    "checked_at": "2026-11-04",
+    "report": "docs/research-2026-11-04/linux-feasibility.md",
+    "source_ledger": "docs/research-2026-11-04/linux-sources.json",
+    "legacy_fields": "Legacy A-E milestones and subsystem summaries retain their earlier scope; research_milestones supplies L0-L5 and new evidence records describe additional source research.",
+    "local_physical_status": "NOT_TESTED",
+    "new_finding_classification": "EXPERIMENTAL",
+    "new_finding": "Pinned Pauli1Go derivative provides an exact-J172 implementation lead; source inspection does not establish runtime success on the owner target or J171."
+  },
+  "research_milestones": [
+    {
+      "id": "L0",
+      "name": "Confirm hardware and boot-chain knowledge",
+      "classification": "DOCUMENTED",
+      "evidence_ids": [
+        "linux-20261104-j171",
+        "linux-20261104-j172",
+        "linux-20261104-t8010"
+      ],
+      "acceptance_criteria": "Read-only observed target ProductType, board, firmware/build and host; reviewed boot-chain assumptions and explicit remaining gaps.",
+      "documented_status": "SOURCE_OR_DOCUMENTATION_AVAILABLE",
+      "simulated_status": "NOT_TESTED",
+      "physical_status": "NOT_TESTED",
+      "local_status": "NOT_TESTED",
+      "simulation_scope": "Exercise missing and mismatched identity rejection; fixtures do not identify hardware."
+    },
+    {
+      "id": "L1",
+      "name": "Establish control and visibility over relevant boot interfaces",
+      "classification": "DOCUMENTED",
+      "evidence_ids": [
+        "linux-pongo",
+        "linux-loader"
+      ],
+      "acceptance_criteria": "Reviewed logging transport and explicitly approved board-bound interface observation with fresh banner/transport evidence.",
+      "documented_status": "SOURCE_OR_DOCUMENTATION_AVAILABLE",
+      "simulated_status": "NOT_TESTED",
+      "physical_status": "NOT_TESTED",
+      "local_status": "NOT_TESTED",
+      "simulation_scope": "Host adapter deadline/disconnect tests only; no physical-interface control inferred."
+    },
+    {
+      "id": "L2",
+      "name": "Establish compatible custom payload boot",
+      "classification": "DOCUMENTED",
+      "evidence_ids": [
+        "linux-pongo",
+        "linux-20261104-pauli-loader"
+      ],
+      "acceptance_criteria": "Separately approved RAM-only payload experiment with source/build/config/hash manifest, fresh matching target banner and return/recovery observation.",
+      "documented_status": "SOURCE_OR_DOCUMENTATION_AVAILABLE",
+      "simulated_status": "NOT_TESTED",
+      "physical_status": "NOT_TESTED",
+      "local_status": "NOT_TESTED",
+      "simulation_scope": "Artifact admission and approval-plan checks only; no payload boot inferred."
+    },
+    {
+      "id": "L3",
+      "name": "Investigate Linux kernel entry and early initialization",
+      "classification": "DOCUMENTED",
+      "evidence_ids": [
+        "linux-20261104-entry",
+        "linux-20261104-t8010",
+        "linux-20261104-j171",
+        "linux-20261104-j172"
+      ],
+      "acceptance_criteria": "Exact kernel/DTB hashes and target boot log demonstrate selected board, usable RAM, AIC/timer activity and early initialization.",
+      "documented_status": "SOURCE_OR_DOCUMENTATION_AVAILABLE",
+      "simulated_status": "NOT_TESTED",
+      "physical_status": "NOT_TESTED",
+      "local_status": "NOT_TESTED",
+      "simulation_scope": "QEMU virt may test generic userspace/kernel behavior; cannot prove T8010 compatibility."
+    },
+    {
+      "id": "L4",
+      "name": "Investigate functioning shell and root filesystem",
+      "classification": "DOCUMENTED",
+      "evidence_ids": [
+        "linux-20261104-ramdisk",
+        "linux-build"
+      ],
+      "acceptance_criteria": "Interactive initramfs/RAM-root shell on this device with retained command results, init completion and safe exit; no internal-storage dependency.",
+      "documented_status": "SOURCE_OR_DOCUMENTATION_AVAILABLE",
+      "simulated_status": "NOT_TESTED",
+      "physical_status": "NOT_TESTED",
+      "local_status": "NOT_TESTED",
+      "simulation_scope": "Same init script may be tested on QEMU virt with a virt kernel; result stays simulated."
+    },
+    {
+      "id": "L5",
+      "name": "Evaluate peripheral support and stable usability",
+      "classification": "EXPERIMENTAL",
+      "evidence_ids": [
+        "linux-20261104-pauli-status",
+        "linux-20261104-pauli-touch-source",
+        "linux-20261104-firmware-guide"
+      ],
+      "acceptance_criteria": "Repeated exact-board boots plus bounded display/input/thermal/power/recovery observations; storage, radio calibration and suspend each separately scoped.",
+      "documented_status": "PARTIAL_EXPERIMENTAL_REPORTS",
+      "simulated_status": "NOT_TESTED",
+      "physical_status": "NOT_TESTED",
+      "local_status": "NOT_TESTED",
+      "simulation_scope": "Regression harness can organize results but cannot confer device support."
     }
   ]
 }

@@ -1,5 +1,10 @@
 # Read-only reverse engineering and REA
 
+The [2026-11-04 provider review](research-2026-11-04/reverse-engineering.md)
+covers REA 6.8.0, retained Evidence views and the Ghidra version mismatch.
+The adapter remains a parser/capability seam; no live transport or deep
+provider has been established.
+
 The implemented artifact inspector hashes a supplied regular file and identifies
 ELF, thin/fat Mach-O, PE, or a ZIP-container candidate from a bounded header. It
 does not execute the artifact. Symbols, strings, references and call graphs remain

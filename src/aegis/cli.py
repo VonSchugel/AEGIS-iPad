@@ -18,6 +18,13 @@ def emit(value):
     click.echo(json.dumps(redact(value), indent=2, ensure_ascii=True, default=str))
 
 
+def run_hardware(factory):
+    """Lock before creating the coroutine; busy commands perform no USB work."""
+    from aegis.safety.session import hardware_session
+    with hardware_session():
+        return asyncio.run(factory())
+
+
 def handled(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
@@ -64,7 +71,7 @@ def discover(ctx, fixture):
         result = load_fixture(fixture)
     else:
         from aegis.agents.discovery import DiscoveryAgent
-        result = asyncio.run(DiscoveryAgent().discover())
+        result = run_hardware(lambda: DiscoveryAgent().discover())
     store = EvidenceStore(ctx.obj["db"])
     try:
         store.add("discovery", result)
@@ -86,7 +93,7 @@ def compatibility(fixture):
         result = load_fixture(fixture)
     else:
         from aegis.agents.discovery import DiscoveryAgent
-        result = asyncio.run(DiscoveryAgent().discover())
+        result = run_hardware(lambda: DiscoveryAgent().discover())
     devices = result.get("devices", [])
     if len(devices) != 1:
         raise WorkflowError("AMBIGUOUS_TARGET", "Exactly one identified device is required", {"device_count": len(devices)})
@@ -110,6 +117,21 @@ def research(ctx):
     finally:
         store.close()
     emit(result)
+
+
+@main.command("search-evidence")
+@click.argument("query")
+@click.option("--limit", type=click.IntRange(1, 20), default=5, show_default=True)
+@click.pass_context
+@handled
+def search_evidence(ctx, query, limit):
+    """Retrieve bounded canonical source evidence with literal search terms."""
+    from aegis.evidence.search import search_evidence as search
+    store = EvidenceStore(ctx.obj["db"])
+    try:
+        emit(search(store, query, limit))
+    finally:
+        store.close()
 
 
 @main.command("linux-status")
@@ -171,7 +193,7 @@ def simulate(ctx, scenario):
 def validate(ctx, ssh_port, identity):
     """Check connectivity and optional device-bound USB SSH probes."""
     from aegis.agents.validation import ValidationAgent
-    result = asyncio.run(ValidationAgent().validate(ssh_port=ssh_port, identity=identity))
+    result = run_hardware(lambda: ValidationAgent().validate(ssh_port=ssh_port, identity=identity))
     store = EvidenceStore(ctx.obj["db"])
     try:
         store.add("validation", result)

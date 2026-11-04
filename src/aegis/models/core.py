@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from enum import StrEnum
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
 
 
 def utcnow() -> str:
@@ -11,10 +11,18 @@ def utcnow() -> str:
 
 class EvidenceClass(StrEnum):
     VERIFIED = "VERIFIED"
-    DOCUMENTED = "SUPPORTED BY DOCUMENTATION"
+    DOCUMENTED = "DOCUMENTED"
     EXPERIMENTAL = "EXPERIMENTAL"
     HYPOTHESIS = "HYPOTHESIS"
     UNKNOWN = "UNKNOWN"
+
+    @classmethod
+    def _missing_(cls, value):
+        # Historical packages used this longer spelling. Accept existing
+        # databases/snapshots while serializing the requested five-class schema.
+        if value == "SUPPORTED BY DOCUMENTATION":
+            return cls.DOCUMENTED
+        return None
 
 
 class Evidence(BaseModel):
@@ -54,6 +62,20 @@ class Transition(BaseModel):
     evidence_ids: list[int] = Field(min_length=1)
     timestamp: str = Field(default_factory=utcnow)
     simulated: bool = False
+
+
+class GateReceipt(BaseModel):
+    """A trusted service's decision for one edge, never a model's assertion.
+
+    This contract binds observations to a gate and execution mode. It does not
+    authenticate Python callers or establish the truth of their observations.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+    target: State
+    passed: StrictBool
+    simulated: StrictBool
+    observation: dict[str, Any]
 
 
 class WorkflowError(Exception):

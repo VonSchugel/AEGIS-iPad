@@ -1,10 +1,18 @@
 # AEGIS-iPad
 
-An evidence-based Python application for owner-authorized iPad 7 research. It implements six cooperating agents, read-only discovery, a version-aware compatibility engine, a persistent evidence database, fixture simulations, and a guarded adapter for **palera1n v2.4 rootless**.
+An evidence-based Python application for owner-authorized iPad 7 research. It implements six deterministic service modules, read-only discovery, a version-aware compatibility engine, a persistent evidence database, fixture simulations, and a guarded adapter for **palera1n v2.4 rootless**. No model is required for the core workflow.
+
+The [2026-11-04 research and engineering package](docs/research-2026-11-04/README.md) audits the existing design, updates primary-source research, records architectural decisions and reports fresh local measurements. It adds typed gate receipts, cooperative hardware-session exclusion, source-evidence retrieval and independent L0–L5 research criteria. Physical device identity and firmware remain unknown on the observed Windows host.
 
 **Current result:** software verification passes on Windows and in Debian 13/Python 3.13 CI. The iPad's identity and firmware could not be established on the observed host because Apple communication utilities are absent. The physical installation gate has not been crossed. No device was modified, no jailbreak was verified, and Linux was not booted. See [verification results](docs/testing.md).
 
 ## Start
+
+For continuation by another agent or on another computer, read the
+[agentic memorandum and suitable-machine profile](docs/AGENTIC-MEMORANDUM.md).
+It recommends an existing Intel amd64 host running native Debian 13, explains
+the proposed capacity budget and lists the evidence still needed. Repository
+[agent instructions](AGENTS.md) provide the portable handoff.
 
 For a new Debian installation, follow [Install on Debian 13](docs/debian.md).
 It covers GitHub cloning, system packages, an isolated Python environment,
@@ -38,6 +46,7 @@ All command results are JSON. Standard diagnostic commands do not pair, change U
 | `aegis discover` | Read-only normal/recovery/DFU observations; unknowns remain unknown |
 | `aegis compatibility` | Evaluate the freshly observed hardware, firmware and host |
 | `aegis research` | Dated citation snapshots and REA capability observations |
+| `aegis search-evidence "A10 timer" --limit 5` | Bounded lexical retrieval of stored source evidence with provenance |
 | `aegis inspect --artifact PATH` | Offline header/hash admission of a supplied artifact |
 | `aegis plan --backup DIR --binary FILE` | Build a live plan and stop at approval |
 | `aegis simulate` | Complete fixture-only state-machine run |
@@ -48,6 +57,13 @@ All command results are JSON. Standard diagnostic commands do not pair, change U
 | `aegis export-evidence --output report.jsonl` | Export the persistent, redacted evidence history |
 
 The global database option precedes the command: `aegis --db research.sqlite simulate`. The default is `.aegis/evidence.sqlite`; each invocation gets its own run identity. Do not point this at a public/shared directory.
+
+Run `aegis research` to store bundled sources before using `search-evidence`.
+Search uses SQLite FTS5 when available, preserves source dates and limitations,
+and excludes generated advice. Relevance does not establish truth or freshness.
+Its local index is created on first use; source records are retained unchanged.
+No model, network call or device is needed. A Python/SQLite build without FTS5
+returns a structured unavailable result and installs nothing automatically.
 
 A packaged demonstration profile is available at `src/aegis/data/simulation.json`. `discover --fixture PATH` and `compatibility --fixture PATH` accept explicitly labeled data. Fixture input is never accepted by the physical execution command. `simulate` bypasses every physical adapter and records simulated evidence separately.
 
@@ -112,6 +128,12 @@ The execution command is implemented and fixture-tested, but **has not been exer
 8. After the upstream tool exits, the operator completes the documented on-device loader/bootstrap prompts and confirms completion. Optional `--identity KEY --ssh-port 44` enables independent USB-only SSH validation with a preconfigured host key. Without those interfaces, the result remains partial/unverified.
 
 Cancellation kills the ordinary POSIX subprocess group and stops bounded log collection; it cannot undo device changes or guarantee termination of a process that deliberately detached. Inspect device state before any new experiment. No recovery command, erase, restore, downgrade or experimental payload is automatically invoked.
+
+Cooperating hardware CLI commands and the public plan/execute workflows acquire
+a nonblocking per-user OS lock across database paths and checkouts. A busy
+session stops before USB work. Ownership ends on process exit; the lock file
+persists. This does not exclude other users, external tools or direct low-level
+adapter calls, and does not make interrupted hardware work safe to resume.
 
 Validation checks USB identity binding, hardware identity, filesystem access, bootstrap, `dpkg` and local root command execution where interfaces permit. `CORE_VALIDATED` describes only these checks. Reboot persistence, graphical package-manager operation and stability remain unknown. See [validation](docs/validation.md) for key pinning and the limits of the result.
 

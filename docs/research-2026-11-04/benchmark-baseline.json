@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-04",
+  "label": "b99da1c-baseline",
+  "classification": "VERIFIED",
+  "scope": "local hardware-free software measurements",
+  "source_tree_sha256": "0279df018226d349c0739a8ce37c92cfccf1774435c0a6e23eab775e21dac557",
+  "host": {
+    "system": "Windows",
+    "machine": "AMD64",
+    "python": "3.12.14"
+  },
+  "method": "perf_counter_ns/process_time_ns; warmed serial repetitions; tracemalloc enabled; in-memory SQLite",
+  "measurements": {
+    "compatibility": {
+      "repetitions": 100,
+      "median_ms": 0.39125,
+      "p95_ms": 0.4422,
+      "median_process_cpu_ms": 0.0,
+      "python_peak_allocated_bytes": 52378
+    },
+    "fixture_workflow": {
+      "repetitions": 20,
+      "median_ms": 4.8399,
+      "p95_ms": 5.7776,
+      "median_process_cpu_ms": 0.0,
+      "python_peak_allocated_bytes": 90154
+    },
+    "python_scan_reference": {
+      "repetitions": 20,
+      "median_ms": 200.14355,
+      "p95_ms": 206.0586,
+      "median_process_cpu_ms": 203.125,
+      "python_peak_allocated_bytes": 10054
+    }
+  },
+  "limitations": [
+    "No USB/jailbreak/kernel benchmark.",
+    "Python allocation peak is not RSS or whole-machine CPU utilization.",
+    "Synthetic retrieval is a lexical plumbing check, not real research precision.",
+    "LLM tokens, research tool cost and model completion accuracy are NOT_MEASURED.",
+    "Do not compare wall time across hosts or tracing configurations as a tool speed claim."
+  ],
+  "simulation_outcome_reproducibility": {
+    "runs": 5,
+    "unique_semantic_outcome_digests": 1,
+    "excludes": [
+      "run IDs",
+      "timestamps",
+      "row IDs"
+    ]
+  },
+  "indexed_search": "UNAVAILABLE in selected source revision"
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-04",
+  "label": "research-review-working-tree",
+  "classification": "VERIFIED",
+  "scope": "local hardware-free software measurements",
+  "source_tree_sha256": "5964111c35c871b7404704d69c8cdd5edd3357da8cef638783e372e4325b13c7",
+  "host": {
+    "system": "Windows",
+    "machine": "AMD64",
+    "python": "3.12.14"
+  },
+  "method": "perf_counter_ns/process_time_ns; warmed serial repetitions; tracemalloc enabled; in-memory SQLite",
+  "measurements": {
+    "compatibility": {
+      "repetitions": 100,
+      "median_ms": 0.3905,
+      "p95_ms": 0.4457,
+      "median_process_cpu_ms": 0.0,
+      "python_peak_allocated_bytes": 52482
+    },
+    "fixture_workflow": {
+      "repetitions": 20,
+      "median_ms": 6.43745,
+      "p95_ms": 6.9292,
+      "median_process_cpu_ms": 0.0,
+      "python_peak_allocated_bytes": 95792
+    },
+    "python_scan_reference": {
+      "repetitions": 20,
+      "median_ms": 192.51435,
+      "p95_ms": 199.5751,
+      "median_process_cpu_ms": 187.5,
+      "python_peak_allocated_bytes": 10054
+    },
+    "index_build_plus_first_search_ms": 20.3348,
+    "indexed_search": {
+      "repetitions": 20,
+      "median_ms": 0.17015,
+      "p95_ms": 0.1865,
+      "median_process_cpu_ms": 0.0,
+      "python_peak_allocated_bytes": 9601
+    }
+  },
+  "limitations": [
+    "No USB/jailbreak/kernel benchmark.",
+    "Python allocation peak is not RSS or whole-machine CPU utilization.",
+    "Synthetic retrieval is a lexical plumbing check, not real research precision.",
+    "LLM tokens, research tool cost and model completion accuracy are NOT_MEASURED.",
+    "Do not compare wall time across hosts or tracing configurations as a tool speed claim."
+  ],
+  "simulation_outcome_reproducibility": {
+    "runs": 5,
+    "unique_semantic_outcome_digests": 1,
+    "excludes": [
+      "run IDs",
+      "timestamps",
+      "row IDs"
+    ]
+  },
+  "synthetic_retrieval": {
+    "canonical_rows": 3005,
+    "generated_distractors": 1,
+    "queries": [
+      {
+        "query": "pongoos handoff",
+        "returned": 1,
+        "precision_of_returned": 1.0,
+        "recall": 1,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "query": "backup manifest",
+        "returned": 1,
+        "precision_of_returned": 1.0,
+        "recall": 1,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "query": "interrupt timer",
+        "returned": 1,
+        "precision_of_returned": 1.0,
+        "recall": 1,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "query": "approval expiry",
+        "returned": 1,
+        "precision_of_returned": 1.0,
+        "recall": 1,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "query": "ghidra provider",
+        "returned": 1,
+        "precision_of_returned": 1.0,
+        "recall": 1,
+        "reciprocal_rank": 1.0
+      }
+    ]
+  }
+}

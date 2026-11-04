@@ -1,0 +1,35 @@
+{
+  "checked_date": "2026-11-04",
+  "classification": "VERIFIED",
+  "installed_import_isolated": true,
+  "source_files_match": 35,
+  "scenarios": {
+    "success": {
+      "state": "LINUX_FEASIBILITY_ASSESSMENT",
+      "status": "SIMULATED"
+    },
+    "disconnect": {
+      "state": "RECOVERY_GUIDANCE",
+      "status": "SIMULATED"
+    },
+    "timeout": {
+      "state": "RECOVERY_GUIDANCE",
+      "status": "SIMULATED"
+    },
+    "partial": {
+      "state": "RECOVERY_GUIDANCE",
+      "status": "SIMULATED"
+    },
+    "unsupported": {
+      "state": "VERIFY_COMPATIBILITY",
+      "status": "BLOCKED"
+    }
+  },
+  "source_search_results": 2,
+  "linux_milestones": "L0-L5 NOT_TESTED",
+  "network_or_device_access": false,
+  "limitations": [
+    "Installed-wheel software smoke tests only; no hardware/provider verification",
+    "Working-tree build retains existing project version; no release was published"
+  ]
+}

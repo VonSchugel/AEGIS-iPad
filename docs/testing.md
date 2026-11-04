@@ -1,5 +1,9 @@
 # Software verification — 2026-10-25
 
+The [2026-11-04 review](research-2026-11-04/benchmark-report.md) adds a fresh
+baseline, **269 passing tests / 3 Windows skips**, source-retrieval measurements
+and new gate/session/Linux contract checks. Results below remain historical.
+
 ## Version 0.2.0 review
 
 The current-source Windows/Python 3.12 review passed **234 tests, with 2 POSIX

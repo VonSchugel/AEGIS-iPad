@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-04",
+  "scope": "Primary development/runtime documentation; local experiments are recorded separately",
+  "sources": [
+    {"id":"ENG001","url":"https://learn.chatgpt.com/docs/agent-configuration/subagents","revision":"live documentation; commit unavailable","classification":"DOCUMENTED","observed":"Parallel read-heavy delegation, model inheritance and context/coordination considerations","limitations":"Vendor guidance; no AEGIS comparative model experiment or billed token telemetry"},
+    {"id":"ENG002","url":"https://developers.openai.com/learn/docs-mcp","revision":"live documentation; commit unavailable","classification":"DOCUMENTED","observed":"Read-only documentation search/retrieval MCP interface","limitations":"Documentation service, not an AEGIS runtime or active connection established in this task"},
+    {"id":"ENG003","url":"https://pydantic.dev/docs/ai/guides/multi-agent-applications/","revision":"live documentation; commit unavailable","classification":"DOCUMENTED","observed":"Delegation, handoff and graph patterns","limitations":"No framework installed or compared locally"},
+    {"id":"ENG004","url":"https://pydantic.dev/docs/ai/capabilities/durable_execution/overview/","revision":"live documentation; commit unavailable","classification":"DOCUMENTED","observed":"Durable model/tool execution with external engines","limitations":"Engine-specific retry/replay behavior is not a safe hardware-resumption guarantee"},
+    {"id":"ENG005","url":"https://docs.langchain.com/oss/python/langgraph/persistence","revision":"live documentation; commit unavailable","classification":"DOCUMENTED","observed":"Separate checkpoint and store persistence responsibilities","limitations":"No LangGraph implementation or performance result obtained"},
+    {"id":"ENG006","url":"https://docs.langchain.com/oss/python/langgraph/fault-tolerance","revision":"live documentation; commit unavailable","classification":"DOCUMENTED","observed":"Retry boundaries, timeouts and unknown outcomes after lost acknowledgement","limitations":"External side effects require reconciliation; a checkpoint is not device rollback"},
+    {"id":"ENG007","url":"https://docs.python.org/3.12/library/asyncio-subprocess.html","revision":"Python 3.12 live documentation","classification":"DOCUMENTED","observed":"Argument-based subprocesses, platform event-loop requirements and explicit timeout handling","limitations":"Current interpreter is 3.12.14; local process tests establish only exercised host behavior"},
+    {"id":"ENG008","url":"https://docs.python.org/3.12/library/fcntl.html","revision":"Python 3.12 live documentation","classification":"DOCUMENTED","observed":"POSIX flock interface and nonblocking exclusive mode","limitations":"Current Windows task cannot execute POSIX lock behavior"},
+    {"id":"ENG009","url":"https://docs.python.org/3.12/library/msvcrt.html","revision":"Python 3.12 live documentation","classification":"DOCUMENTED","observed":"Nonblocking byte locking including beyond end of file","limitations":"Cooperative per-user coordination; not device authorization"},
+    {"id":"ENG010","url":"https://sqlite.org/fts5.html","revision":"live official FTS5 documentation","classification":"DOCUMENTED","observed":"Contentless indexes, MATCH and bm25 lexical ranking","limitations":"FTS5 build availability must be tested; relevance is not verification or freshness"},
+    {"id":"ENG011","url":"https://docs.pydantic.dev/latest/concepts/strict_mode/","revision":"live documentation; redirect to pydantic.dev validation docs","classification":"DOCUMENTED","observed":"Strict field validation avoids boolean coercion","limitations":"Local dependency remains pinned 2.11.7; tested features only"},
+    {"id":"ENG012","url":"https://click.palletsprojects.com/en/stable/why/","revision":"live Click stable documentation","classification":"DOCUMENTED","observed":"Composable nested CLI and prompt/file facilities","limitations":"Local pin 8.2.1 retained; current documentation is not proof of a needed upgrade"},
+    {"id":"ENG013","url":"https://docs.pytest.org/en/stable/how-to/fixtures.html","revision":"live pytest stable documentation","classification":"DOCUMENTED","observed":"Isolated reusable test setup and teardown","limitations":"Hardware fixture tests cannot establish actual device behavior"}
+  ],
+  "local_evidence": {
+    "baseline_revision": "b99da1cb313845392279792d5ce5701cc03eab99",
+    "baseline_tests": "234 passed, 2 skipped, warnings treated as errors",
+    "host": "Windows 11 AMD64; Python 3.12.14 isolated environment",
+    "target_model": "UNKNOWN",
+    "target_firmware": "UNKNOWN",
+    "physical_device_modified": false,
+    "reports": ["benchmark-baseline.json", "benchmark-final.json", "benchmark-report.md"]
+  }
+}

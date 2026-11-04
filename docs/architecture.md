@@ -1,5 +1,9 @@
 # Implemented architecture
 
+The [2026-11-04 architecture review](research-2026-11-04/architecture-decisions.md)
+records the current design decisions, independent research paths and remaining
+validation limits.
+
 AEGIS is a local Python 3.12+ application with six cooperating, testable agent
 modules. The agents are explicit software components coordinated by the CLI and
 state machine; they are not six independently running language-model processes.
@@ -49,11 +53,14 @@ DISCOVER → IDENTIFY_DEVICE → VERIFY_COMPATIBILITY → VERIFY_BACKUP
 ```
 
 Execution or validation failures can branch to `RECOVERY_GUIDANCE`. The state
-machine rejects skipped edges, false preconditions, empty evidence references
-and references outside the current run. Each owning agent evaluates the actual
-gate and stores its observation before requesting a transition. Referenced
-records establish traceability; the generic state machine does not independently
-prove the semantics of arbitrary evidence supplied by another Python caller.
+machine rejects skipped edges, false preconditions and missing, duplicated or
+foreign-run evidence references. Each referenced record must be a typed
+`GateReceipt` for that exact target state, with strict boolean success and a
+simulation flag matching the machine. Generic observations, research records
+and generated advice cannot advance it. Each owning service evaluates the
+actual gate before issuing a receipt. This binds a service's assertion to one
+edge; it does not authenticate arbitrary Python callers or independently prove
+the truth of their observations.
 
 The live path requires one identified target and one observed Apple USB
 descriptor, reviewed model/firmware/host compatibility, a matching recent
@@ -68,6 +75,14 @@ plans and simulated approvals cannot authorize execution. Before invoking the
 tool, AEGIS rechecks target identity/firmware, singleton inventory, host,
 eligibility, backup and artifact. Disconnecting or changing the target requires
 fresh planning.
+
+CLI discovery, live compatibility and validation, plus the public plan/execute
+workflows, participate in a per-user OS hardware-session lock. Planning releases
+the lock while awaiting approval; execution reacquires it before fresh checks
+and holds it through validation. A competing command fails immediately before
+USB work. The persistent lock file is never unlinked or stolen using stale PIDs.
+Other programs/users and direct low-level adapter calls do not participate.
+This coordination mechanism grants no approval and makes no safe-resume claim.
 
 ## Narrow installation adapter
 

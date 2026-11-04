@@ -1,5 +1,7 @@
 from aegis.evidence import EvidenceStore
-from aegis.models import State, Transition, WorkflowError
+from pydantic import ValidationError
+
+from aegis.models import GateReceipt, State, Transition, WorkflowError
 
 ORDER = [s for s in State if s != State.RECOVERY_GUIDANCE]
 EDGES = {state: {ORDER[i + 1]} for i, state in enumerate(ORDER[:-1])}
@@ -16,7 +18,15 @@ class StateMachine:
     def advance(self, target: State, evidence_ids: list[int], *, satisfied: bool):
         if target not in EDGES.get(self.state, set()):
             raise WorkflowError("INVALID_TRANSITION", f"Cannot transition {self.state} to {target}")
-        if not satisfied or not self.store.has_ids(evidence_ids):
+        records = self.store.current_records(evidence_ids)
+        valid = bool(records)
+        for record in records:
+            try:
+                receipt = GateReceipt.model_validate(record["payload"])
+                valid = valid and record["kind"] == "gate_receipt" and receipt.target == target and receipt.passed and receipt.simulated == self.simulated
+            except (ValidationError, TypeError):
+                valid = False
+        if satisfied is not True or not valid:
             raise WorkflowError("PRECONDITION_FAILED", f"Evidence does not satisfy {target}")
         item = Transition(source=self.state, target=target, evidence_ids=evidence_ids, simulated=self.simulated)
         self.store.add("transition", item.model_dump(mode="json"))
