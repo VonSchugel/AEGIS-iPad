@@ -4,6 +4,13 @@ The [2026-11-04 review](research-2026-11-04/benchmark-report.md) adds a fresh
 baseline, **269 passing tests / 3 Windows skips**, source-retrieval measurements
 and new gate/session/Linux contract checks. Results below remain historical.
 
+Publication commit `f37fdc3f068ce5b0b12e8ed2a8bd7857d2e99658` passed
+**272 tests in 9.83 seconds**, with warnings treated as errors, on
+[Debian 13/Python 3.13 CI](https://github.com/VonSchugel/AEGIS-iPad/actions/runs/41936088473).
+Dependency checks and fixture simulation also passed. POSIX process-group and
+hardware-lock checks ran there; no iPad or native-host USB behavior was tested.
+See [the provenance record](research-2026-11-04/ci-verification.json).
+
 ## Version 0.2.0 review
 
 The current-source Windows/Python 3.12 review passed **234 tests, with 2 POSIX

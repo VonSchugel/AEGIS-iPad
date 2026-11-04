@@ -18,6 +18,13 @@ working-tree build retaining version 0.2.0, not a newly published release.
 Fresh live planning also stopped at identification with a structured
 PRECONDITION_FAILED result; it did not reach a modifying adapter.
 
+After publication, commit `f37fdc3f068ce5b0b12e8ed2a8bd7857d2e99658` passed
+**272 tests in 9.83 seconds** on Debian 13/Python 3.13, warnings treated as
+errors, with dependency checks and fixture simulation also successful.
+[CI run](https://github.com/VonSchugel/AEGIS-iPad/actions/runs/41936088473),
+[structured provenance](ci-verification.json). All Windows skips ran on Linux.
+This verifies POSIX software behavior in CI, not physical device transport.
+
 An additional concurrency probe used four independent SQLite connections synchronized before first lookup, then inserted new evidence. All completed and the final query returned five distinct canonical rows including the inserts. This is a focused observed probe, not a general database stress guarantee. No network model, exploit or physical device was used by the test suite.
 
 ## Measurements

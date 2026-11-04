@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-04",
+  "classification": "VERIFIED",
+  "confidence": "high for the recorded software run only",
+  "repository": "VonSchugel/AEGIS-iPad",
+  "commit": "f37fdc3f068ce5b0b12e8ed2a8bd7857d2e99658",
+  "tree": "4ba9967a6af2c1b3da6b2089d8f8ac84b30f4e9c",
+  "run_id": 41936088473,
+  "job_id": 126944762994,
+  "run_url": "https://github.com/VonSchugel/AEGIS-iPad/actions/runs/41936088473",
+  "workflow": ".github/workflows/test.yml",
+  "event": "push",
+  "conclusion": "success",
+  "environment": "Debian 13 container, amd64, distro Python 3.13",
+  "tests": {"passed": 272, "skipped": 0, "seconds": 9.83, "warnings_as_errors": true},
+  "dependency_check": "passed",
+  "fixture_simulation": "passed",
+  "source_tree_sha256": "5964111c35c871b7404704d69c8cdd5edd3357da8cef638783e372e4325b13c7",
+  "method": "Connected GitHub workflow/job API and decoded job logs; test summary observed directly",
+  "physical_device_modified": false,
+  "limitations": [
+    "No physical iPad or native-host USB experiment",
+    "Exact interpreter patch was not explicitly probed by the workflow",
+    "Test duration is not a controlled cross-host performance comparison",
+    "CI establishes the recorded commit's software behavior, not firmware or Linux boot success"
+  ]
+}

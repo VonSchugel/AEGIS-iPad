@@ -49,6 +49,11 @@ need the operator's concrete destination and authorization.
   source 269 passing tests / 3 Windows skips, warnings treated as errors. Wheel
   and source builds passed; isolated installed-wheel checks passed all five
   fixture scenarios, research, source retrieval and Linux reporting.
+  Published commit `f37fdc3f068ce5b0b12e8ed2a8bd7857d2e99658` then passed
+  **272 tests** with warnings treated as errors, dependency checks and fixture
+  simulation in [Debian 13/Python 3.13 CI](https://github.com/VonSchugel/AEGIS-iPad/actions/runs/41936088473).
+  This verifies container software behavior, including POSIX tests, and leaves
+  the candidate laptop's native USB/hardware behavior unverified.
 - **VERIFIED implementation:** six deterministic services, typed gate receipts,
   conservative compatibility policy, backup/artifact checks, exact single-use
   approval, cooperative per-user hardware locking and bounded evidence search.
