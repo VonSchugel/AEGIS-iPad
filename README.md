@@ -8,11 +8,10 @@ The [2026-11-04 research and engineering package](docs/research-2026-11-04/READM
 
 ## Start
 
-For continuation by another agent or on another computer, read the
-[agentic memorandum and suitable-machine profile](docs/AGENTIC-MEMORANDUM.md).
-It recommends an existing Intel amd64 host running native Debian 13, explains
-the proposed capacity budget and lists the evidence still needed. Repository
-[agent instructions](AGENTS.md) provide the portable handoff.
+The [completed-update memorandum](docs/AGENTIC-MEMORANDUM.md) records the changes
+already implemented in AEGIS, their published commits, verified results and
+deployment environment. Repository [agent instructions](AGENTS.md) guide
+continued work from that state.
 
 For a new Debian installation, follow [Install on Debian 13](docs/debian.md).
 It covers GitHub cloning, system packages, an isolated Python environment,

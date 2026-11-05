@@ -1,13 +1,62 @@
-# Agentic memorandum: continuing AEGIS on a suitable machine
+# Agentic memorandum: completed AEGIS update
 
-Prepared **2026-11-04** for an operator and the next coding/research agent.
+Update applied **2026-11-04**; presentation clarified **2026-11-05**.
 Repository: [VonSchugel/AEGIS-iPad](https://github.com/VonSchugel/AEGIS-iPad).
-Read [AGENTS.md](../AGENTS.md), then retrieve only the relevant parts of the
-[research package](research-2026-11-04/README.md). This memorandum transfers
-project context and operating instructions; it is not model-weight training or
-authorization to modify a device.
+This memorandum records the research and engineering update already implemented
+in AEGIS. It summarizes delivered changes, verification evidence, remaining
+limits and deployment guidance for that update.
 
-## Recommended machine and environment
+The implementation was published to the existing `main` branch in
+[`f37fdc3`](https://github.com/VonSchugel/AEGIS-iPad/commit/f37fdc3f068ce5b0b12e8ed2a8bd7857d2e99658),
+with the verified Debian outcome recorded in
+[`4109365`](https://github.com/VonSchugel/AEGIS-iPad/commit/4109365907279a0d36a7d19c51696d4a9a970392).
+The distribution version remains **0.2.0**; these commit identities identify
+the applied update. Full decisions and provenance are in the
+[research package](research-2026-11-04/README.md).
+
+## Delivered changes
+
+| Area | Implemented behavior in AEGIS |
+|---|---|
+| Workflow evidence gates | Typed receipts bind success to the exact transition, current run and simulation mode; unrelated, failed, duplicate, foreign or generated evidence cannot advance the workflow. |
+| Hardware coordination | Participating CLI commands and public plan/execute workflows use a nonblocking per-user OS lock; a competing command stops before USB access. |
+| Evidence retrieval | `search-evidence` retrieves bounded canonical SQLite evidence with provenance and truncation markers, excluding generated advice. |
+| Evidence vocabulary | Typed evidence uses DOCUMENTED and accepts historical SUPPORTED BY DOCUMENTATION input. |
+| Compatibility research | Dopamine comparison was refreshed to 3.0.13; the physical palera1n adapter retains its reviewed v2.4 artifact and firmware policy. |
+| Linux research | Independent L0–L5 acceptance contracts distinguish documented, simulated and physical evidence while preserving legacy A–E consumers. |
+| Architecture and engineering | The audit, decisions, source ledgers, benchmarks and roadmap document the retained deterministic services and optional AI interpretation. |
+| Agent instructions | [AGENTS.md](../AGENTS.md) supplies repository-scoped instructions for continuing work from this implemented state. |
+
+## Verification and current limits
+
+- **VERIFIED software:** baseline 234 passing tests / 2 Windows skips; updated
+  source 269 passing tests / 3 Windows skips, warnings treated as errors. Wheel
+  and source builds passed; isolated installed-wheel checks passed all five
+  fixture scenarios, research, source retrieval and Linux reporting.
+  Published commit `f37fdc3f068ce5b0b12e8ed2a8bd7857d2e99658` passed
+  **272 tests**, dependency checks and fixture simulation in
+  [Debian 13/Python 3.13 CI](https://github.com/VonSchugel/AEGIS-iPad/actions/runs/41936088473).
+  The follow-up documentation commit `4109365` also passed
+  [272 tests](https://github.com/VonSchugel/AEGIS-iPad/actions/runs/41936453762).
+  These are software results, including POSIX checks; native laptop USB and
+  physical device behavior remain unverified.
+- **DOCUMENTED policy:** physical execution remains pinned palera1n v2.4
+  rootless, reviewed firmware range 15.0–18.4.0. Dopamine 3.0.13 is a manual
+  research alternative. Newer firmware requires reviewed evidence.
+- **UNKNOWN:** attached ProductType/board, actual firmware/build, complete backup
+  readiness, native-host device transport, physical installation and deep REA
+  provider operation. The example 17.0.3 filename supplies no device evidence.
+- **EXPERIMENTAL upstream:** J172 Linux derivative functionality is author
+  reported. Both requested boards and every local L0–L5 physical milestone
+  remain unverified. Jailbreak success cannot establish Linux success.
+
+The [benchmark report](research-2026-11-04/benchmark-report.md) and
+[CI provenance](research-2026-11-04/ci-verification.json) preserve measured scope.
+Device-modifying operations continue to require concrete compatible plans and
+fresh operator approval. No physical device experiment was performed for this
+update.
+
+## Deployment environment for this update
 
 **HYPOTHESIS / recommended first host:** use the existing Intel amd64 laptop,
 booted into **native Debian 13 (trixie)**, with direct USB access and persistent
@@ -43,36 +92,13 @@ Do not overwrite disks, repartition the laptop, flash a USB drive or change boot
 settings merely because this memorandum recommends a host. Such setup actions
 need the operator's concrete destination and authorization.
 
-## Verified handoff state
+## Installing and verifying the applied update
 
-- **VERIFIED software:** baseline 234 passing tests / 2 Windows skips; reviewed
-  source 269 passing tests / 3 Windows skips, warnings treated as errors. Wheel
-  and source builds passed; isolated installed-wheel checks passed all five
-  fixture scenarios, research, source retrieval and Linux reporting.
-  Published commit `f37fdc3f068ce5b0b12e8ed2a8bd7857d2e99658` then passed
-  **272 tests** with warnings treated as errors, dependency checks and fixture
-  simulation in [Debian 13/Python 3.13 CI](https://github.com/VonSchugel/AEGIS-iPad/actions/runs/41936088473).
-  This verifies container software behavior, including POSIX tests, and leaves
-  the candidate laptop's native USB/hardware behavior unverified.
-- **VERIFIED implementation:** six deterministic services, typed gate receipts,
-  conservative compatibility policy, backup/artifact checks, exact single-use
-  approval, cooperative per-user hardware locking and bounded evidence search.
-- **DOCUMENTED policy:** physical adapter remains pinned palera1n v2.4 rootless,
-  reviewed firmware range 15.0–18.4.0. Dopamine 3.0.13 is a manual research
-  alternative, not an executable fallback. Newer firmware requires new evidence.
-- **UNKNOWN:** attached ProductType/board, actual firmware/build, complete backup
-  readiness, native-host device transport, physical installation and deep REA
-  provider operation. The example 17.0.3 filename supplies no device evidence.
-- **EXPERIMENTAL upstream:** J172 Linux derivative functionality is author
-  reported. Both requested boards and every local L0–L5 physical milestone
-  remain unverified. Jailbreak success cannot establish Linux success.
-
-The [benchmark report](research-2026-11-04/benchmark-report.md) preserves measured
-scope. Prior results do not replace a test run on a new checkout or host.
-The source distribution retains the existing 0.2.0 version; Git commit identity
-and source hashes distinguish this update. Publication is not a new release tag.
-
-## First session on the destination
+For an existing clean checkout on `main`, inspect local changes first and then
+bring in the published update with `git pull --ff-only origin main`. Preserve
+uncommitted work before updating. Reinstall the project in its verified virtual
+environment and run the checks below. A fresh host uses the clone/setup sequence
+shown here and a new OS-specific environment.
 
 Keep the iPad disconnected while preparing and testing the host. Follow
 [the Debian setup guide](debian.md) for package names, OS permissions and private
@@ -113,7 +139,7 @@ as described in the Debian guide. Require actual iPad7,11 or iPad7,12,
 release/build, normal-mode binding and singleton inventory. Missing interfaces
 are UNKNOWN. New trust/pairing is a separately approved preparation action.
 
-## Prioritized work for the next agent
+## Remaining engineering work
 
 1. Establish native-host software and read-only identity evidence. Continue
    offline research/tests if hardware or drivers are unavailable.
@@ -135,7 +161,7 @@ Acceptance criteria and dependencies are in the [roadmap](research-2026-11-04/ro
 [architecture decisions](research-2026-11-04/architecture-decisions.md) and
 [Linux subsystem matrix](research-2026-11-04/linux-feasibility.md).
 
-## Agent and tool configuration
+## Agent and tool configuration retained by the update
 
 Use one integrating agent with deterministic services. Delegate temporary,
 independent research/review tasks with explicit file ownership and structured

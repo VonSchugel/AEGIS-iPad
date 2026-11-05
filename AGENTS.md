@@ -1,8 +1,9 @@
-# AEGIS agent handoff
+# AEGIS project state and agent instructions
 
-Read [the agentic memorandum](docs/AGENTIC-MEMORANDUM.md) before continuing on a
-new machine. It records the recommended host, observed results, unresolved
-hardware evidence and portable setup. Retrieve relevant sections of the
+Read [the completed-update memorandum](docs/AGENTIC-MEMORANDUM.md) to establish
+the changes already implemented in AEGIS and their verified results. It also
+records deployment guidance, unresolved hardware evidence and setup checks.
+Retrieve relevant sections of the
 [research index](docs/research-2026-11-04/README.md); do not reread the whole
 repository for every question.
 

@@ -1,6 +1,10 @@
 # Changes
 
-## Unreleased — research review 2026-11-04
+## Applied post-0.2.0 update — 2026-11-04
+
+Published on `main` in `f37fdc3` and `4109365`. The distribution version remains
+0.2.0. Memorandum wording was clarified on 2026-11-05 to describe this completed
+update and its verification.
 
 - Add a portable agentic memorandum and repository AGENTS.md covering the
   recommended native Debian host, proposed resource budgets, setup checks,
